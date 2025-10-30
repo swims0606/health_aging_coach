@@ -98,3 +98,62 @@ export interface LearningProgress {
   completedAt?: Date;
   timeSpent: number; // 초
 }
+
+// Commitment Device (약속 장치)
+export type CommitmentType = 'public_declaration' | 'penalty' | 'reward';
+
+export interface Commitment {
+  id: string;
+  habitId: string;
+  type: CommitmentType;
+  description: string;
+  targetDays: number;
+  currentProgress: number;
+  penalty?: string;
+  reward?: string;
+  isActive: boolean;
+  createdAt: Date;
+}
+
+// Implementation Intention (실행 의도)
+export interface ImplementationIntention {
+  id: string;
+  habitId: string;
+  situation: string;    // "알람이 울리면"
+  action: string;       // "바로 물 한 잔 마시기"
+  location: string;     // "침실 → 부엌"
+  time: string;         // "오전 7시"
+  isActive: boolean;
+  createdAt: Date;
+}
+
+// Habit Stacking (습관 스태킹)
+export type HabitStackStatus = 'planned' | 'active' | 'completed';
+
+export interface HabitStack {
+  id: string;
+  existingHabit: string;  // "양치질 후"
+  newHabit: string;       // "비타민 복용"
+  status: HabitStackStatus;
+  successDays: number;
+  createdAt: Date;
+}
+
+// Personal Growth (개인 성장)
+export interface PersonalGrowth {
+  id: string;
+  metric: string;        // "에너지 레벨"
+  beforeValue: string;   // "낮음"
+  afterValue: string;    // "높음"
+  improvement: string;   // "+40%"
+  measurementDate: Date;
+}
+
+// Reward System
+export interface RewardSystem {
+  type: 'bonus_points' | 'badge' | 'message' | 'animation';
+  probability: number; // 0-1
+  trigger: 'daily' | 'weekly' | 'streak' | 'random';
+  value: number;
+  message?: string;
+}
