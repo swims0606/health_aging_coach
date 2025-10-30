@@ -1,15 +1,24 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Header from '@/components/layout/Header';
 import TabSystem, { TabType } from '@/components/dashboard/TabSystem';
 import DailyView from '@/components/dashboard/DailyView';
 import WeeklyView from '@/components/dashboard/WeeklyView';
 import MonthlyView from '@/components/dashboard/MonthlyView';
 import MotivationalQuote from '@/components/dashboard/MotivationalQuote';
+import DailyTip from '@/components/tips/DailyTip';
+import { Habit } from '@/lib/types';
+import { loadHabits } from '@/lib/habitStorage';
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<TabType>('daily');
+  const [habits, setHabits] = useState<Habit[]>([]);
+
+  useEffect(() => {
+    const loadedHabits = loadHabits();
+    setHabits(loadedHabits);
+  }, []);
 
   const renderView = () => {
     switch (activeTab) {
@@ -32,6 +41,13 @@ export default function DashboardPage() {
         <div className="mb-6">
           <MotivationalQuote />
         </div>
+
+        {/* Daily Tip */}
+        {habits.length > 0 && (
+          <div className="mb-6">
+            <DailyTip habits={habits.filter(h => h.isActive !== false)} />
+          </div>
+        )}
 
         {/* Tab System */}
         <div className="mb-6">

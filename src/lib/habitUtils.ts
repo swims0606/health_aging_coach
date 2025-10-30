@@ -50,11 +50,19 @@ export const createHabit = (
 ): Habit => {
   return {
     ...habitData,
-    id: generateId(),
+    id: habitData.name.toLowerCase().replace(/\s+/g, '-') + '-' + generateId(),
     streak: 0,
     completedToday: false,
     totalCompletions: 0,
     createdAt: new Date(),
+    // Add default values for new fields
+    frequency: habitData.frequency || { type: 'daily' },
+    isDefault: habitData.isDefault !== undefined ? habitData.isDefault : true,
+    isActive: habitData.isActive !== undefined ? habitData.isActive : true,
+    createdBy: habitData.createdBy || 'system',
+    customIcon: habitData.customIcon,
+    customColor: habitData.customColor,
+    tags: habitData.tags || [],
   };
 };
 

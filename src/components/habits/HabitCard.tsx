@@ -2,13 +2,14 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Droplets, Activity, Apple, Moon, Heart, Flame } from 'lucide-react';
+import { Droplets, Activity, Apple, Moon, Heart, Flame, Calendar } from 'lucide-react';
 import { Habit, HabitCategory } from '@/lib/types';
 import CheckButton from './CheckButton';
 
 interface HabitCardProps {
   habit: Habit;
   onToggle: (habitId: string) => void;
+  onCalendarClick?: (habit: Habit) => void;
   index: number;
 }
 
@@ -34,7 +35,7 @@ const difficultyLabels: Record<string, string> = {
   hard: '어려움',
 };
 
-export default function HabitCard({ habit, onToggle, index }: HabitCardProps) {
+export default function HabitCard({ habit, onToggle, onCalendarClick, index }: HabitCardProps) {
   const Icon = categoryIcons[habit.category];
   const colors = categoryColors[habit.category];
 
@@ -94,11 +95,25 @@ export default function HabitCard({ habit, onToggle, index }: HabitCardProps) {
           </div>
         </div>
 
-        {/* Check Button */}
-        <CheckButton
-          isCompleted={habit.completedToday}
-          onToggle={() => onToggle(habit.id)}
-        />
+        {/* Action Buttons */}
+        <div className="flex flex-col gap-2 flex-shrink-0">
+          {/* Calendar Button */}
+          {onCalendarClick && (
+            <button
+              onClick={() => onCalendarClick(habit)}
+              className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
+              title="캘린더 보기"
+            >
+              <Calendar className="w-5 h-5 text-gray-600" />
+            </button>
+          )}
+
+          {/* Check Button */}
+          <CheckButton
+            isCompleted={habit.completedToday}
+            onToggle={() => onToggle(habit.id)}
+          />
+        </div>
       </div>
     </motion.div>
   );

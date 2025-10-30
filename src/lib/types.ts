@@ -45,6 +45,13 @@ export type HabitCategory = 'water' | 'exercise' | 'nutrition' | 'sleep' | 'stre
 // Habit Difficulty
 export type HabitDifficulty = 'easy' | 'medium' | 'hard';
 
+// Habit Frequency
+export type HabitFrequency =
+  | { type: 'daily' }
+  | { type: 'weekly'; days: number } // 주 N회
+  | { type: 'specific_days'; weekdays: number[] } // [1,3,5] = 월,수,금
+  | { type: 'custom'; pattern: boolean[] }; // 사용자 정의 패턴
+
 // Habit
 export interface Habit {
   id: string;
@@ -56,6 +63,13 @@ export interface Habit {
   totalCompletions: number;
   createdAt: Date;
   targetDays: number; // 3, 7, 21일 목표
+  frequency?: HabitFrequency; // 반복 주기
+  isDefault?: boolean; // 기본 제공 vs 사용자 생성
+  isActive?: boolean;  // 현재 진행 중 여부
+  createdBy?: 'system' | 'user';
+  customIcon?: string;
+  customColor?: string;
+  tags?: string[];     // ['건강', '운동', '영양'] 등
 }
 
 // Habit Completion
@@ -156,4 +170,102 @@ export interface RewardSystem {
   trigger: 'daily' | 'weekly' | 'streak' | 'random';
   value: number;
   message?: string;
+}
+
+// === Calendar Types ===
+
+// Calendar Day Status
+export type CalendarDayStatus = 'completed' | 'missed' | 'future' | 'rest-day';
+
+// Calendar Day
+export interface CalendarDay {
+  date: Date;
+  status: CalendarDayStatus;
+  isToday: boolean;
+}
+
+// Habit Calendar
+export interface HabitCalendar {
+  habitId: string;
+  month: number;
+  year: number;
+  completions: { [date: string]: boolean }; // "2024-01-15": true
+}
+
+// Calendar Stats
+export interface CalendarStats {
+  totalDays: number;
+  completedDays: number;
+  completionRate: number;
+  currentStreak: number;
+  longestStreak: number;
+}
+
+// === Habit Template Types ===
+
+// Habit Template
+export interface HabitTemplate {
+  id: string;
+  name: string;
+  category: HabitCategory;
+  description: string;
+  tips: string[];
+  difficulty: HabitDifficulty;
+  recommendedFrequency: HabitFrequency;
+  icon?: string;
+  color?: string;
+  tags: string[];
+}
+
+// === Tips Types ===
+
+// Tip Category
+export type TipCategory = 'getting-started' | 'consistency' | 'motivation' | 'troubleshooting';
+
+// Time of Day
+export type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'anytime';
+
+// Tip Difficulty
+export type TipDifficulty = 'beginner' | 'intermediate' | 'advanced';
+
+// Habit Tip
+export interface HabitTip {
+  id: string;
+  habitId: string;
+  category: TipCategory;
+  title: string;
+  content: string;
+  difficulty: TipDifficulty;
+  timeOfDay?: TimeOfDay;
+  situation?: string; // '집에서', '직장에서', '외출 중' 등
+  successRate?: number; // 이 팁을 따른 사용자들의 성공률
+}
+
+// Dynamic Tip Type
+export type DynamicTipType = 'encouragement' | 'practical' | 'scientific' | 'personal';
+
+// User Pattern
+export type UserPattern = 'consistent' | 'struggling' | 'improving';
+
+// Dynamic Tip Context
+export interface DynamicTipContext {
+  currentStreak: number;
+  timeOfDay: string;
+  recentPattern: UserPattern;
+}
+
+// Dynamic Tip
+export interface DynamicTip {
+  message: string;
+  type: DynamicTipType;
+  context: DynamicTipContext;
+}
+
+// Habit Search Filters
+export interface HabitSearchFilters {
+  category?: string;
+  difficulty?: string;
+  frequency?: string;
+  tags?: string[];
+  searchQuery?: string;
 }

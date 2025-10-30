@@ -22,7 +22,7 @@ export const saveHabits = (habits: Habit[]): void => {
   }
 };
 
-// Load habits from localStorage
+// Load habits from localStorage with migration
 export const loadHabits = (): Habit[] => {
   if (typeof window === 'undefined') return [];
   try {
@@ -30,10 +30,18 @@ export const loadHabits = (): Habit[] => {
     if (!stored) return [];
 
     const habits = JSON.parse(stored);
-    // Convert date strings back to Date objects
+    // Convert date strings back to Date objects and add default values for new fields
     return habits.map((habit: any) => ({
       ...habit,
       createdAt: new Date(habit.createdAt),
+      // Default values for new fields (data migration)
+      frequency: habit.frequency || { type: 'daily' },
+      isDefault: habit.isDefault !== undefined ? habit.isDefault : true,
+      isActive: habit.isActive !== undefined ? habit.isActive : true,
+      createdBy: habit.createdBy || 'system',
+      customIcon: habit.customIcon,
+      customColor: habit.customColor,
+      tags: habit.tags || [],
     }));
   } catch (error) {
     console.error('Failed to load habits:', error);
@@ -133,4 +141,27 @@ export const clearAllData = (): void => {
   if (typeof window === 'undefined') return;
   localStorage.removeItem(STORAGE_KEYS.HABITS);
   localStorage.removeItem(STORAGE_KEYS.COMPLETIONS);
+};
+
+// Create habit from template
+export const createHabitFromTemplate = (template: any): Habit => {
+  const id = template.id + '-' + Date.now();
+  return {
+    id,
+    name: template.name,
+    category: template.category,
+    difficulty: template.difficulty,
+    streak: 0,
+    completedToday: false,
+    totalCompletions: 0,
+    createdAt: new Date(),
+    targetDays: 21,
+    frequency: template.recommendedFrequency || { type: 'daily' },
+    isDefault: false,
+    isActive: true,
+    createdBy: 'user',
+    customIcon: template.icon,
+    customColor: template.color,
+    tags: template.tags || [],
+  };
 };

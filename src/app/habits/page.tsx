@@ -7,7 +7,11 @@ import HabitCard from '@/components/habits/HabitCard';
 import CategoryFilter from '@/components/habits/CategoryFilter';
 import BonusRewardModal from '@/components/habits/BonusRewardModal';
 import CelebrationModal from '@/components/habits/CelebrationModal';
-import { Habit, HabitCompletion, HabitCategory } from '@/lib/types';
+import HabitCalendarView from '@/components/calendar/HabitCalendarView';
+import HabitLibraryModal from '@/components/habit-management/HabitLibraryModal';
+import TipCard from '@/components/tips/TipCard';
+import DailyTip from '@/components/tips/DailyTip';
+import { Habit, HabitCompletion, HabitCategory, HabitTemplate } from '@/lib/types';
 import {
   loadHabits,
   saveHabits,
@@ -17,9 +21,11 @@ import {
   isHabitCompletedToday,
   calculateStreak,
   generateBonusReward,
+  createHabitFromTemplate,
 } from '@/lib/habitStorage';
 import { initializeDefaultHabits } from '@/lib/habitUtils';
-import { Sparkles } from 'lucide-react';
+import { getTipsForHabit } from '@/lib/habitTips';
+import { Sparkles, Plus, Calendar, Lightbulb } from 'lucide-react';
 
 export default function HabitsPage() {
   const [habits, setHabits] = useState<Habit[]>([]);
@@ -28,6 +34,10 @@ export default function HabitsPage() {
   const [bonusReward, setBonusReward] = useState({ isOpen: false, points: 0, message: '' });
   const [celebration, setCelebration] = useState({ isOpen: false, milestone: 0, habitName: '' });
   const [isLoading, setIsLoading] = useState(true);
+  const [selectedHabitForCalendar, setSelectedHabitForCalendar] = useState<Habit | null>(null);
+  const [showHabitLibrary, setShowHabitLibrary] = useState(false);
+  const [showTips, setShowTips] = useState(false);
+  const [selectedHabitForTips, setSelectedHabitForTips] = useState<Habit | null>(null);
 
   // Load data on mount
   useEffect(() => {
@@ -52,6 +62,15 @@ export default function HabitsPage() {
     setCompletions(loadedCompletions);
     setIsLoading(false);
   }, []);
+
+  // Handle adding habit from template
+  const handleAddHabitFromTemplate = (template: HabitTemplate) => {
+    const newHabit = createHabitFromTemplate(template);
+    const updatedHabits = [...habits, newHabit];
+    setHabits(updatedHabits);
+    saveHabits(updatedHabits);
+    setShowHabitLibrary(false);
+  };
 
   // Handle habit toggle
   const handleToggleHabit = (habitId: string) => {
@@ -192,6 +211,27 @@ export default function HabitsPage() {
           </div>
         </motion.div>
 
+        {/* Daily Tip */}
+        <DailyTip habits={habits.filter(h => h.isActive !== false)} />
+
+        {/* Action Buttons */}
+        <div className="flex gap-3 mb-6">
+          <button
+            onClick={() => setShowHabitLibrary(true)}
+            className="flex-1 bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-md"
+          >
+            <Plus className="w-5 h-5" />
+            습관 추가
+          </button>
+          <button
+            onClick={() => setShowTips(!showTips)}
+            className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-md"
+          >
+            <Lightbulb className="w-5 h-5" />
+            팁
+          </button>
+        </div>
+
         {/* Category Filter */}
         <div className="mb-6">
           <CategoryFilter
@@ -209,6 +249,7 @@ export default function HabitsPage() {
                   key={habit.id}
                   habit={habit}
                   onToggle={handleToggleHabit}
+                  onCalendarClick={setSelectedHabitForCalendar}
                   index={index}
                 />
               ))
@@ -241,6 +282,27 @@ export default function HabitsPage() {
         habitName={celebration.habitName}
         onClose={() => setCelebration({ ...celebration, isOpen: false })}
       />
+
+      {/* Calendar Modal */}
+      <AnimatePresence>
+        {selectedHabitForCalendar && (
+          <HabitCalendarView
+            habit={selectedHabitForCalendar}
+            completions={completions.filter(c => c.habitId === selectedHabitForCalendar.id)}
+            onClose={() => setSelectedHabitForCalendar(null)}
+          />
+        )}
+      </AnimatePresence>
+
+      {/* Habit Library Modal */}
+      <AnimatePresence>
+        {showHabitLibrary && (
+          <HabitLibraryModal
+            onClose={() => setShowHabitLibrary(false)}
+            onSelectTemplate={handleAddHabitFromTemplate}
+          />
+        )}
+      </AnimatePresence>
     </div>
   );
 }
