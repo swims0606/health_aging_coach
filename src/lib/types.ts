@@ -72,3 +72,29 @@ export interface BonusReward {
   value: number;
   message: string;
 }
+
+// Learning Content
+export interface LearningContent {
+  id: string;
+  day: number;
+  title: string;
+  description: string;
+  youtubeId: string;
+  duration: string;
+  category: string;
+  keyPoints: string[];
+  actionTip: string;
+  textContent: string;
+  readingTime: number; // 분
+  completed: boolean;
+  completedAt?: Date;
+}
+
+// Learning Progress
+export interface LearningProgress {
+  contentId: string;
+  watchedVideo: boolean;
+  readText: boolean;
+  completedAt?: Date;
+  timeSpent: number; // 초
+}
