@@ -38,3 +38,37 @@ export interface HabitProgress {
   completion: number;
   streak: number;
 }
+
+// Habit Category
+export type HabitCategory = 'water' | 'exercise' | 'nutrition' | 'sleep' | 'stress';
+
+// Habit Difficulty
+export type HabitDifficulty = 'easy' | 'medium' | 'hard';
+
+// Habit
+export interface Habit {
+  id: string;
+  name: string;
+  category: HabitCategory;
+  difficulty: HabitDifficulty;
+  streak: number;
+  completedToday: boolean;
+  totalCompletions: number;
+  createdAt: Date;
+  targetDays: number; // 3, 7, 21일 목표
+}
+
+// Habit Completion
+export interface HabitCompletion {
+  habitId: string;
+  date: string; // YYYY-MM-DD
+  completed: boolean;
+  completedAt?: Date;
+}
+
+// Bonus Reward
+export interface BonusReward {
+  type: 'bonus_points' | 'badge' | 'message';
+  value: number;
+  message: string;
+}
