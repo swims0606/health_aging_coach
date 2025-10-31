@@ -40,57 +40,41 @@ export default function BonusRewardModal({
           >
             {/* Modal */}
             <motion.div
-              initial={{ scale: 0, rotate: -180 }}
-              animate={{ scale: 1, rotate: 0 }}
-              exit={{ scale: 0, rotate: 180 }}
-              transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-              className="bg-white rounded-2xl p-8 max-w-sm mx-4 relative"
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              transition={{ duration: 0.2 }}
+              className="bg-white rounded-lg p-6 max-w-sm mx-4 relative border border-gray-200"
               onClick={(e) => e.stopPropagation()}
             >
               {/* Close Button */}
               <button
                 onClick={onClose}
-                className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+                className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
               >
-                <X className="w-5 h-5" />
+                <X className="w-4 h-4" />
               </button>
 
-              {/* Sparkles Animation */}
+              {/* Sparkles Icon */}
               <div className="flex justify-center mb-4">
-                <motion.div
-                  animate={{
-                    rotate: [0, 10, -10, 10, 0],
-                    scale: [1, 1.1, 1, 1.1, 1],
-                  }}
-                  transition={{
-                    duration: 0.5,
-                    repeat: Infinity,
-                    repeatDelay: 1,
-                  }}
-                  className="bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full p-4"
-                >
-                  <Sparkles className="w-12 h-12 text-white" />
-                </motion.div>
+                <div className="bg-gray-100 rounded-full p-3">
+                  <Sparkles className="w-8 h-8 text-gray-700" />
+                </div>
               </div>
 
               {/* Message */}
-              <h3 className="text-2xl font-bold text-center text-gray-900 mb-2">
+              <h3 className="text-lg font-semibold text-center text-gray-900 mb-1">
                 {message}
               </h3>
-              <p className="text-center text-gray-600 mb-4">
+              <p className="text-center text-gray-500 text-sm mb-4">
                 추가 포인트 획득!
               </p>
 
               {/* Points */}
-              <motion.div
-                initial={{ scale: 0 }}
-                animate={{ scale: 1 }}
-                transition={{ delay: 0.3, type: 'spring', stiffness: 200 }}
-                className="bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl p-4 text-center"
-              >
-                <p className="text-4xl font-bold text-white">+{points}</p>
-                <p className="text-sm text-white/90">보너스 포인트</p>
-              </motion.div>
+              <div className="bg-gray-50 border border-gray-200 rounded-lg p-4 text-center">
+                <p className="text-3xl font-bold text-gray-900">+{points}</p>
+                <p className="text-xs text-gray-500">보너스 포인트</p>
+              </div>
 
               {/* Confetti Effect (simple) */}
               <div className="absolute inset-0 pointer-events-none overflow-hidden rounded-2xl">

@@ -185,30 +185,24 @@ export default function HabitsPage() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-gradient-to-r from-primary-500 to-secondary-500 rounded-xl p-6 text-white mb-6 shadow-lg"
+          className="bg-white border border-gray-200 rounded-lg p-5 mb-6"
         >
-          <div className="flex items-center gap-3 mb-3">
-            <Sparkles className="w-6 h-6" />
-            <h2 className="text-xl font-bold">오늘의 진행상황</h2>
+          <div className="flex items-center justify-between mb-4">
+            <h2 className="text-lg font-semibold text-gray-900">오늘의 진행상황</h2>
+            <div className="text-2xl font-bold text-gray-900">
+              {completedToday}/{totalHabits}
+            </div>
           </div>
-          <div className="flex items-end gap-4">
-            <div>
-              <p className="text-4xl font-bold">
-                {completedToday}/{totalHabits}
-              </p>
-              <p className="text-sm opacity-90">습관 완료</p>
+          <div>
+            <div className="bg-gray-100 rounded-full h-2 overflow-hidden">
+              <motion.div
+                initial={{ width: 0 }}
+                animate={{ width: `${completionRate}%` }}
+                transition={{ duration: 0.8, ease: 'easeOut' }}
+                className="bg-gray-900 h-2 rounded-full"
+              />
             </div>
-            <div className="flex-1">
-              <div className="bg-white/20 rounded-full h-3 overflow-hidden">
-                <motion.div
-                  initial={{ width: 0 }}
-                  animate={{ width: `${completionRate}%` }}
-                  transition={{ duration: 0.8, ease: 'easeOut' }}
-                  className="bg-white h-3 rounded-full"
-                />
-              </div>
-              <p className="text-sm mt-1 opacity-90">{completionRate}% 완료</p>
-            </div>
+            <p className="text-xs text-gray-500 mt-2">{completionRate}% 완료</p>
           </div>
         </motion.div>
 

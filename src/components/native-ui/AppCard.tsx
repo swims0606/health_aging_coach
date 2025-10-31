@@ -29,11 +29,11 @@ export default function AppCard({
   };
 
   const shadowMap = {
-    none: designTokens.shadows.none,
+    none: 'none',
     sm: designTokens.shadows.sm,
-    card: designTokens.shadows.card,
-    elevated: designTokens.shadows.elevated,
-    floating: designTokens.shadows.floating,
+    card: 'none',
+    elevated: designTokens.shadows.sm,
+    floating: designTokens.shadows.md,
   };
 
   const Component = onClick ? motion.button : motion.div;
@@ -50,14 +50,15 @@ export default function AppCard({
       whileTap={onClick ? { scale: 0.98 } : undefined}
       onClick={onClick}
       className={`
-        bg-white rounded-[${designTokens.borderRadius.lg}]
-        border border-gray-100
+        bg-white rounded-lg
+        border border-gray-200
         ${className}
       `}
       style={{
         padding: paddingMap[padding],
         boxShadow: shadowMap[shadow],
         cursor: onClick ? 'pointer' : 'default',
+        borderRadius: designTokens.borderRadius.lg,
       }}
     >
       {children}

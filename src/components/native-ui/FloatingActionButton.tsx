@@ -50,7 +50,7 @@ export default function FloatingActionButton({
         backgroundColor: color,
         borderRadius: label ? designTokens.borderRadius.full : '50%',
         width: label ? 'auto' : '56px',
-        boxShadow: designTokens.shadows.floating,
+        boxShadow: designTokens.shadows.lg,
       }}
     >
       <span className="flex-shrink-0">{icon}</span>

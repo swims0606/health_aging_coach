@@ -21,7 +21,7 @@ const categories: { id: HabitCategory | 'all'; label: string; icon: React.Elemen
 
 export default function CategoryFilter({ selectedCategory, onCategoryChange }: CategoryFilterProps) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-2 scrollbar-hide">
+    <div className="flex gap-1 overflow-x-auto pb-2 scrollbar-hide">
       {categories.map((category) => {
         const Icon = category.icon;
         const isActive = selectedCategory === category.id;
@@ -30,14 +30,14 @@ export default function CategoryFilter({ selectedCategory, onCategoryChange }: C
           <button
             key={category.id}
             onClick={() => onCategoryChange(category.id)}
-            className={`flex items-center gap-2 px-4 py-2 rounded-lg whitespace-nowrap transition-colors flex-shrink-0 ${
+            className={`flex items-center gap-1.5 px-3 py-1.5 rounded whitespace-nowrap transition-colors flex-shrink-0 ${
               isActive
-                ? 'bg-primary-500 text-white'
-                : 'bg-gray-100 text-gray-600 hover:bg-gray-200'
+                ? 'bg-gray-900 text-white'
+                : 'bg-white text-gray-600 hover:bg-gray-50 border border-gray-200'
             }`}
           >
-            <Icon className="w-4 h-4" />
-            <span className="text-sm font-medium">{category.label}</span>
+            <Icon className="w-3.5 h-3.5" />
+            <span className="text-xs font-medium">{category.label}</span>
           </button>
         );
       })}

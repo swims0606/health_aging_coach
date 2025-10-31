@@ -30,24 +30,24 @@ export default function DailyTip({ habits }: DailyTipProps) {
     <motion.div
       initial={{ opacity: 0, y: -20 }}
       animate={{ opacity: 1, y: 0 }}
-      className="bg-gradient-to-r from-yellow-400 via-orange-400 to-pink-400 rounded-xl p-5 shadow-lg mb-6"
+      className="bg-gray-50 border border-gray-200 rounded-lg p-4 mb-6"
     >
-      <div className="flex items-start justify-between mb-3">
+      <div className="flex items-start justify-between mb-2">
         <div className="flex items-center gap-2">
-          <Sparkles className="w-5 h-5 text-white" />
-          <h3 className="text-white font-bold">오늘의 꿀팁</h3>
+          <Sparkles className="w-4 h-4 text-gray-700" />
+          <h3 className="text-gray-900 font-semibold text-sm">오늘의 꿀팁</h3>
         </div>
         <button
           onClick={loadTip}
-          className="p-1 bg-white bg-opacity-20 rounded-full hover:bg-opacity-30 transition-colors"
+          className="p-1 hover:bg-gray-200 rounded transition-colors"
         >
-          <RefreshCw className="w-4 h-4 text-white" />
+          <RefreshCw className="w-3.5 h-3.5 text-gray-500" />
         </button>
       </div>
 
-      <div className="bg-white bg-opacity-20 backdrop-blur-sm rounded-lg p-4">
-        <h4 className="text-white font-bold mb-2">{tip.title}</h4>
-        <p className="text-white text-sm leading-relaxed opacity-95">{tip.content}</p>
+      <div>
+        <h4 className="text-gray-900 font-medium text-sm mb-1">{tip.title}</h4>
+        <p className="text-gray-600 text-xs leading-relaxed">{tip.content}</p>
       </div>
     </motion.div>
   );

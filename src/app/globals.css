@@ -3,47 +3,47 @@
 @tailwind utilities;
 
 :root {
-  /* Design Token Colors */
-  --color-primary-50: #f0fdf4;
-  --color-primary-100: #dcfce7;
-  --color-primary-500: #22c55e;
-  --color-primary-600: #16a34a;
-  --color-primary-900: #14532d;
+  /* Design Token Colors - Minimal Palette */
+  --color-primary-50: #f0f9ff;
+  --color-primary-100: #e0f2fe;
+  --color-primary-500: #0ea5e9;
+  --color-primary-600: #0284c7;
+  --color-primary-900: #0c4a6e;
 
-  --color-gray-50: #f9fafb;
-  --color-gray-100: #f3f4f6;
-  --color-gray-200: #e5e7eb;
-  --color-gray-500: #6b7280;
-  --color-gray-900: #111827;
+  --color-gray-50: #fafafa;
+  --color-gray-100: #f5f5f5;
+  --color-gray-200: #e5e5e5;
+  --color-gray-500: #737373;
+  --color-gray-900: #171717;
 
   --color-background-primary: #ffffff;
-  --color-background-secondary: #f8fafc;
-  --color-background-tertiary: #f1f5f9;
+  --color-background-secondary: #fafafa;
+  --color-background-tertiary: #f5f5f5;
 
-  --color-text-primary: #1f2937;
-  --color-text-secondary: #6b7280;
-  --color-text-tertiary: #9ca3af;
+  --color-text-primary: #171717;
+  --color-text-secondary: #737373;
+  --color-text-tertiary: #a3a3a3;
 
-  /* Spacing */
+  /* Minimal Spacing */
   --spacing-xs: 4px;
   --spacing-sm: 8px;
-  --spacing-md: 16px;
-  --spacing-lg: 24px;
-  --spacing-xl: 32px;
-  --spacing-2xl: 48px;
+  --spacing-md: 12px;
+  --spacing-lg: 16px;
+  --spacing-xl: 20px;
+  --spacing-2xl: 24px;
 
-  /* Border Radius */
-  --radius-sm: 8px;
-  --radius-md: 12px;
-  --radius-lg: 16px;
-  --radius-xl: 20px;
+  /* Subtle Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
   --radius-full: 9999px;
 
-  /* Shadows */
-  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.05);
-  --shadow-card: 0 1px 3px rgba(0, 0, 0, 0.1);
-  --shadow-elevated: 0 4px 6px rgba(0, 0, 0, 0.1);
-  --shadow-floating: 0 10px 25px rgba(0, 0, 0, 0.15);
+  /* Minimal Shadows */
+  --shadow-sm: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-card: none;
+  --shadow-elevated: 0 1px 3px 0 rgba(0, 0, 0, 0.1);
+  --shadow-floating: 0 2px 4px 0 rgba(0, 0, 0, 0.1);
 }
 
 /* Native Mobile Optimizations */

@@ -36,9 +36,9 @@ export default function TouchableButton({
 
   const variantStyles = {
     primary: {
-      background: designTokens.colors.primary[500],
+      background: designTokens.colors.gray[900],
       color: designTokens.colors.text.inverse,
-      hoverBackground: designTokens.colors.primary[600],
+      hoverBackground: designTokens.colors.gray[800],
     },
     secondary: {
       background: designTokens.colors.gray[100],
@@ -47,13 +47,13 @@ export default function TouchableButton({
     },
     ghost: {
       background: 'transparent',
-      color: designTokens.colors.primary[600],
-      hoverBackground: designTokens.colors.primary[50],
+      color: designTokens.colors.gray[700],
+      hoverBackground: designTokens.colors.gray[100],
     },
     danger: {
-      background: designTokens.colors.error.main,
+      background: '#ef4444',
       color: designTokens.colors.text.inverse,
-      hoverBackground: designTokens.colors.error.dark,
+      hoverBackground: '#dc2626',
     },
   };
 
@@ -98,9 +98,9 @@ export default function TouchableButton({
         height: currentSize.height,
         padding: currentSize.padding,
         fontSize: currentSize.fontSize,
-        borderRadius: designTokens.borderRadius.lg,
+        borderRadius: designTokens.borderRadius.md,
         border: 'none',
-        boxShadow: variant === 'ghost' ? 'none' : designTokens.shadows.sm,
+        boxShadow: 'none',
       }}
     >
       {icon && <span>{icon}</span>}

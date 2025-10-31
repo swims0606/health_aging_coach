@@ -44,52 +44,42 @@ export default function CelebrationModal({
           onClick={onClose}
         >
           <motion.div
-            initial={{ scale: 0, y: 100 }}
-            animate={{ scale: 1, y: 0 }}
-            exit={{ scale: 0, y: 100 }}
-            transition={{ type: 'spring', stiffness: 200, damping: 20 }}
-            className="bg-white rounded-2xl p-8 max-w-md mx-4 relative text-center"
+            initial={{ scale: 0.9, opacity: 0 }}
+            animate={{ scale: 1, opacity: 1 }}
+            exit={{ scale: 0.9, opacity: 0 }}
+            transition={{ duration: 0.2 }}
+            className="bg-white rounded-lg p-6 max-w-md mx-4 relative text-center border border-gray-200"
             onClick={(e) => e.stopPropagation()}
           >
             <button
               onClick={onClose}
-              className="absolute top-4 right-4 text-gray-400 hover:text-gray-600"
+              className="absolute top-3 right-3 text-gray-400 hover:text-gray-600"
             >
-              <X className="w-5 h-5" />
+              <X className="w-4 h-4" />
             </button>
 
-            {/* Trophy Animation */}
-            <motion.div
-              animate={{
-                rotate: [0, -10, 10, -10, 10, 0],
-                scale: [1, 1.1, 1],
-              }}
-              transition={{
-                duration: 0.6,
-                times: [0, 0.2, 0.4, 0.6, 0.8, 1],
-              }}
-              className="inline-flex bg-gradient-to-br from-yellow-400 to-orange-500 rounded-full p-6 mb-6"
-            >
-              <Trophy className="w-16 h-16 text-white" />
-            </motion.div>
+            {/* Trophy Icon */}
+            <div className="inline-flex bg-gray-100 rounded-full p-5 mb-4">
+              <Trophy className="w-12 h-12 text-gray-700" />
+            </div>
 
             {/* Celebration Message */}
-            <h2 className="text-3xl font-bold text-gray-900 mb-2">
+            <h2 className="text-xl font-bold text-gray-900 mb-1">
               축하합니다! 🎉
             </h2>
-            <p className="text-xl font-semibold text-primary-500 mb-3">
+            <p className="text-base font-semibold text-gray-700 mb-2">
               {getMilestoneMessage(milestone)}
             </p>
-            <p className="text-gray-600 mb-6">
+            <p className="text-gray-600 text-sm mb-5">
               {habitName}을(를) {milestone}일 연속으로 완료했습니다.
               <br />
               계속 이 페이스를 유지하세요!
             </p>
 
             {/* Stats */}
-            <div className="bg-gradient-to-r from-primary-50 to-secondary-50 rounded-xl p-4">
-              <p className="text-sm text-gray-600 mb-1">일관성은 성공의 열쇠입니다</p>
-              <p className="text-2xl font-bold text-primary-500">{milestone}일 연속</p>
+            <div className="bg-gray-50 border border-gray-200 rounded-lg p-4">
+              <p className="text-xs text-gray-500 mb-1">일관성은 성공의 열쇠입니다</p>
+              <p className="text-xl font-bold text-gray-900">{milestone}일 연속</p>
             </div>
 
             {/* Fireworks Effect */}
