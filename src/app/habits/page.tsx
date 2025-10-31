@@ -39,6 +39,7 @@ export default function HabitsPage() {
   const [showHabitLibrary, setShowHabitLibrary] = useState(false);
   const [showTips, setShowTips] = useState(false);
   const [selectedHabitForTips, setSelectedHabitForTips] = useState<Habit | null>(null);
+  const [showAllHabits, setShowAllHabits] = useState(false);
 
   // Load data on mount
   useEffect(() => {
@@ -71,6 +72,19 @@ export default function HabitsPage() {
     setHabits(updatedHabits);
     saveHabits(updatedHabits);
     setShowHabitLibrary(false);
+  };
+
+  // Handle habit deletion
+  const handleDeleteHabit = (habitId: string) => {
+    if (window.confirm('이 습관을 삭제하시겠습니까?')) {
+      const updatedHabits = habits.filter((h) => h.id !== habitId);
+      const updatedCompletions = completions.filter((c) => c.habitId !== habitId);
+
+      setHabits(updatedHabits);
+      setCompletions(updatedCompletions);
+      saveHabits(updatedHabits);
+      saveCompletions(updatedCompletions);
+    }
   };
 
   // Handle habit toggle
@@ -155,6 +169,13 @@ export default function HabitsPage() {
     selectedCategory === 'all'
       ? habits
       : habits.filter((habit) => habit.category === selectedCategory);
+
+  // Limit to top 5 most recent/active habits unless "View All" is clicked
+  const displayHabits = showAllHabits
+    ? filteredHabits
+    : filteredHabits
+        .sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime())
+        .slice(0, 5);
 
   // Calculate stats
   const totalHabits = habits.length;
@@ -291,13 +312,14 @@ export default function HabitsPage() {
         {/* Habits List */}
         <div className="space-y-4 mb-20">
           <AnimatePresence mode="popLayout">
-            {filteredHabits.length > 0 ? (
-              filteredHabits.map((habit, index) => (
+            {displayHabits.length > 0 ? (
+              displayHabits.map((habit, index) => (
                 <HabitCard
                   key={habit.id}
                   habit={habit}
                   onToggle={handleToggleHabit}
                   onCalendarClick={setSelectedHabitForCalendar}
+                  onDelete={handleDeleteHabit}
                   index={index}
                 />
               ))
@@ -312,6 +334,32 @@ export default function HabitsPage() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          {/* View All Button */}
+          {!showAllHabits && filteredHabits.length > 5 && (
+            <motion.button
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              onClick={() => setShowAllHabits(true)}
+              style={{
+                width: '100%',
+                minHeight: '44px',
+                padding: '12px 24px',
+                borderRadius: '16px',
+                border: '1px solid rgba(0, 0, 0, 0.05)',
+                backgroundColor: '#FFFFFF',
+                color: '#6B7280',
+                fontSize: '16px',
+                fontWeight: 500,
+                cursor: 'pointer',
+                transition: 'all 200ms ease-in-out',
+              }}
+              whileHover={{ backgroundColor: '#F9FAFB' }}
+              whileTap={{ scale: 0.98 }}
+            >
+              모든 습관 보기 ({filteredHabits.length})
+            </motion.button>
+          )}
         </div>
       </div>
 

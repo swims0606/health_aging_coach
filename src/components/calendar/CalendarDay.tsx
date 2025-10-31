@@ -12,25 +12,30 @@ interface CalendarDayProps {
 
 export default function CalendarDay({ day, isCurrentMonth, onClick }: CalendarDayProps) {
   const getStatusColor = () => {
+    // Habit Space color palette for calendar
     switch (day.status) {
       case 'completed':
-        return 'bg-primary-500';
+        return '#D1FAE5'; // Light green for completed days
       case 'missed':
-        return 'bg-red-200';
+        return '#E5E7EB'; // Soft gray for missed days
       case 'future':
-        return 'bg-gray-100';
+        return '#F9FAFB'; // Off-white for future days
       case 'rest-day':
-        return 'bg-gray-400';
+        return '#9CA3AF'; // Medium gray for rest days
       default:
-        return 'bg-gray-100';
+        return '#F9FAFB';
     }
   };
 
   const getTodayBorder = () => {
     if (day.isToday) {
-      return 'ring-4 ring-blue-500 ring-opacity-50';
+      // Accent color border for current day (orange/primary)
+      return {
+        border: '2px solid #3B82F6',
+        boxShadow: '0 0 0 4px rgba(59, 130, 246, 0.2)',
+      };
     }
-    return '';
+    return {};
   };
 
   const getOpacity = () => {
@@ -40,33 +45,35 @@ export default function CalendarDay({ day, isCurrentMonth, onClick }: CalendarDa
     return '';
   };
 
+  const textColor = day.status === 'rest-day' ? '#ffffff' : '#111827';
+
   return (
     <motion.button
       initial={{ scale: 0.8, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       whileTap={{ scale: 0.95 }}
       onClick={onClick}
-      className={`
-        relative w-full aspect-square rounded-lg
-        flex items-center justify-center
-        ${getStatusColor()}
-        ${getTodayBorder()}
-        ${getOpacity()}
-        transition-all duration-200
-        hover:scale-105
-      `}
+      className={`relative w-full aspect-square rounded-lg flex items-center justify-center transition-all duration-200 hover:scale-105 ${getOpacity()}`}
+      style={{
+        backgroundColor: getStatusColor(),
+        ...getTodayBorder(),
+      }}
     >
       <span
-        className={`
-          text-sm font-medium
-          ${day.status === 'completed' ? 'text-white' : 'text-gray-700'}
-        `}
+        style={{
+          fontSize: '14px',
+          fontWeight: 500,
+          color: textColor,
+        }}
       >
         {day.date.getDate()}
       </span>
 
       {day.isToday && (
-        <div className="absolute -top-1 -right-1 w-3 h-3 bg-blue-500 rounded-full"></div>
+        <div
+          className="absolute -top-1 -right-1 w-3 h-3 rounded-full"
+          style={{ backgroundColor: '#3B82F6' }}
+        ></div>
       )}
     </motion.button>
   );

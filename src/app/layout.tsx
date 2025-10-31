@@ -16,10 +16,13 @@ export default function RootLayout({
     <html lang="ko">
       <body className="font-sans antialiased">
         <div className="min-h-screen bg-gray-50">
-          <main className="pb-16">
-            {children}
-          </main>
-          <BottomNav />
+          {/* Fixed centered layout container */}
+          <div className="max-w-[1200px] mx-auto bg-white shadow-sm">
+            <main className="pb-16">
+              {children}
+            </main>
+            <BottomNav />
+          </div>
         </div>
       </body>
     </html>

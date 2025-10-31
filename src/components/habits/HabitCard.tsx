@@ -2,7 +2,7 @@
 
 import React from 'react';
 import { motion } from 'framer-motion';
-import { Flame, Calendar, ChevronRight } from 'lucide-react';
+import { Flame, Calendar, ChevronRight, Trash2 } from 'lucide-react';
 import { Habit } from '@/lib/types';
 import { designTokens } from '@/lib/designTokens';
 import { hapticFeedback } from '@/lib/gestureUtils';
@@ -11,6 +11,7 @@ interface HabitCardProps {
   habit: Habit;
   onToggle: (habitId: string) => void;
   onCalendarClick?: (habit: Habit) => void;
+  onDelete?: (habitId: string) => void;
   index: number;
 }
 
@@ -26,7 +27,7 @@ const getHabitColor = (habit: Habit): string => {
   return colors[habit.category] || designTokens.colors.primary[500];
 };
 
-export default function HabitCard({ habit, onToggle, onCalendarClick, index }: HabitCardProps) {
+export default function HabitCard({ habit, onToggle, onCalendarClick, onDelete, index }: HabitCardProps) {
   const habitColor = getHabitColor(habit);
   const progress = Math.min((habit.totalCompletions / habit.targetDays) * 100, 100);
 
@@ -183,37 +184,72 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
           </div>
         </div>
 
-        {/* Calendar Button */}
-        {onCalendarClick && (
-          <button
-            onClick={() => onCalendarClick(habit)}
-            className="flex-shrink-0"
-            style={{
-              minWidth: designTokens.touchTargets.minimum,
-              minHeight: designTokens.touchTargets.minimum,
-              borderRadius: designTokens.borderRadius.md,
-              border: 'none',
-              background: 'none',
-              cursor: 'pointer',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              transition: `background-color ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.backgroundColor = designTokens.colors.gray[50];
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.backgroundColor = 'transparent';
-            }}
-          >
-            <Calendar
-              size={22}
-              strokeWidth={1.5}
-              style={{ color: designTokens.colors.text.tertiary }}
-            />
-          </button>
-        )}
+        {/* Action Buttons */}
+        <div className="flex items-center gap-1">
+          {/* Calendar Button */}
+          {onCalendarClick && (
+            <button
+              onClick={() => onCalendarClick(habit)}
+              className="flex-shrink-0"
+              style={{
+                minWidth: designTokens.touchTargets.minimum,
+                minHeight: designTokens.touchTargets.minimum,
+                borderRadius: designTokens.borderRadius.md,
+                border: 'none',
+                background: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: `background-color ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = designTokens.colors.gray[50];
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+            >
+              <Calendar
+                size={22}
+                strokeWidth={1.5}
+                style={{ color: designTokens.colors.text.tertiary }}
+              />
+            </button>
+          )}
+
+          {/* Delete Button */}
+          {onDelete && (
+            <button
+              onClick={() => onDelete(habit.id)}
+              className="flex-shrink-0"
+              style={{
+                minWidth: designTokens.touchTargets.minimum,
+                minHeight: designTokens.touchTargets.minimum,
+                borderRadius: designTokens.borderRadius.md,
+                border: 'none',
+                background: 'none',
+                cursor: 'pointer',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: `background-color ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.backgroundColor = 'rgba(239, 68, 68, 0.1)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.backgroundColor = 'transparent';
+              }}
+            >
+              <Trash2
+                size={20}
+                strokeWidth={1.5}
+                style={{ color: '#ef4444' }}
+              />
+            </button>
+          )}
+        </div>
       </div>
     </motion.div>
   );
