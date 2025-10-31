@@ -58,8 +58,8 @@ export default function AICoachCard({ message, onRefresh }: AICoachCardProps) {
         {/* Icon */}
         <div
           style={{
-            width: '36px',
-            height: '36px',
+            width: '40px',
+            height: '40px',
             borderRadius: designTokens.borderRadius.md,
             backgroundColor: `${accentColor}15`,
             display: 'flex',
@@ -69,7 +69,7 @@ export default function AICoachCard({ message, onRefresh }: AICoachCardProps) {
           }}
         >
           <Lightbulb
-            size={18}
+            size={20}
             strokeWidth={1.5}
             style={{ color: accentColor }}
           />
@@ -129,7 +129,7 @@ export default function AICoachCard({ message, onRefresh }: AICoachCardProps) {
             fontSize: designTokens.typography.fontSize.body,
             fontWeight: designTokens.typography.fontWeight.normal,
             color: designTokens.colors.text.primary,
-            lineHeight: designTokens.typography.lineHeight.normal,
+            lineHeight: designTokens.typography.lineHeight.relaxed,
             margin: 0,
           }}
         >
@@ -173,7 +173,8 @@ export default function AICoachCard({ message, onRefresh }: AICoachCardProps) {
               color: designTokens.colors.text.secondary,
               background: 'none',
               border: 'none',
-              padding: 0,
+              padding: '12px 0',
+              minHeight: designTokens.touchTargets.minimum,
               cursor: 'pointer',
               transition: `color ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
             }}
@@ -186,9 +187,9 @@ export default function AICoachCard({ message, onRefresh }: AICoachCardProps) {
           >
             <span>과학적 근거</span>
             {showScience ? (
-              <ChevronUp size={16} strokeWidth={1.5} />
+              <ChevronUp size={18} strokeWidth={1.5} />
             ) : (
-              <ChevronDown size={16} strokeWidth={1.5} />
+              <ChevronDown size={18} strokeWidth={1.5} />
             )}
           </button>
 

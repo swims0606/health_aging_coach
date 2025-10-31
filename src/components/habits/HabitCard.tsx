@@ -133,7 +133,7 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
               style={{ marginBottom: designTokens.spacing.md }}
             >
               <Flame
-                size={16}
+                size={18}
                 strokeWidth={1.5}
                 style={{ color: designTokens.colors.accent[400] }}
               />
@@ -189,8 +189,8 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
             onClick={() => onCalendarClick(habit)}
             className="flex-shrink-0"
             style={{
-              width: '36px',
-              height: '36px',
+              minWidth: designTokens.touchTargets.minimum,
+              minHeight: designTokens.touchTargets.minimum,
               borderRadius: designTokens.borderRadius.md,
               border: 'none',
               background: 'none',
@@ -208,7 +208,7 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
             }}
           >
             <Calendar
-              size={20}
+              size={22}
               strokeWidth={1.5}
               style={{ color: designTokens.colors.text.tertiary }}
             />

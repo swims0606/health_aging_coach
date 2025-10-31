@@ -52,7 +52,7 @@ export default function CoachMessageHistory() {
       <div style={{ marginBottom: designTokens.spacing.sectionMargin }}>
         <div className="flex items-center gap-2" style={{ marginBottom: '8px' }}>
           <Clock
-            size={20}
+            size={22}
             strokeWidth={1.5}
             style={{ color: designTokens.colors.primary[500] }}
           />
@@ -87,7 +87,7 @@ export default function CoachMessageHistory() {
           style={{ marginBottom: designTokens.spacing.md }}
         >
           <Filter
-            size={16}
+            size={18}
             strokeWidth={1.5}
             style={{ color: designTokens.colors.text.tertiary }}
           />
@@ -107,7 +107,8 @@ export default function CoachMessageHistory() {
               key={option.value}
               onClick={() => setFilter(option.value)}
               style={{
-                padding: '6px 16px',
+                padding: '12px 20px',
+                minHeight: designTokens.touchTargets.minimum,
                 borderRadius: designTokens.borderRadius.md,
                 fontSize: designTokens.typography.fontSize.body,
                 fontWeight: designTokens.typography.fontWeight.medium,

@@ -100,12 +100,12 @@ export const designTokens = {
     sm: '8px',
     md: '12px',
     lg: '16px',
-    xl: '20px', // Card horizontal padding
+    xl: '20px',
     '2xl': '32px', // Section margin
     '3xl': '48px',
     '4xl': '64px',
-    cardPaddingH: '20px',
-    cardPaddingV: '16px',
+    cardPaddingH: '24px', // Increased from 20px for better text breathing room
+    cardPaddingV: '20px', // Increased from 16px
     componentGap: '12px',
     sectionMargin: '32px',
   },
@@ -130,7 +130,7 @@ export const designTokens = {
     xl: '0 8px 20px rgba(0, 0, 0, 0.10)',
   },
 
-  // Typography System - Inter
+  // Typography System - Inter (Increased for better readability)
   typography: {
     fontFamily: {
       base: "'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif",
@@ -138,30 +138,30 @@ export const designTokens = {
       mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, monospace',
     },
     fontSize: {
-      caption: '12px',
-      body: '14px',
-      h3: '16px',
-      h2: '20px',
-      h1: '24px',
+      caption: '14px',    // Increased from 12px (~17% increase)
+      body: '16px',       // Increased from 14px (~14% increase)
+      h3: '18px',         // Increased from 16px (~12% increase)
+      h2: '20px',         // Same (as requested)
+      h1: '28px',         // Increased from 24px (~17% increase)
       // Legacy aliases
-      xs: '12px',
-      sm: '14px',
-      base: '14px',
-      lg: '16px',
+      xs: '14px',
+      sm: '16px',
+      base: '16px',
+      lg: '18px',
       xl: '20px',
-      '2xl': '24px',
-      '3xl': '30px',
-      '4xl': '36px',
+      '2xl': '28px',
+      '3xl': '32px',
+      '4xl': '40px',
     },
     fontWeight: {
       normal: 400, // Body text
-      medium: 500, // Subheadings
-      semibold: 600, // Headlines
+      medium: 500, // Subheadings & H2
+      semibold: 600, // Headlines & H1
     },
     lineHeight: {
       tight: 1.3, // For headings
-      normal: 1.5, // For body
-      relaxed: 1.75,
+      normal: 1.5, // For captions
+      relaxed: 1.6, // For body text (as requested)
     },
     letterSpacing: {
       tight: '-0.2px', // For headings

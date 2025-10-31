@@ -37,7 +37,7 @@ export default function ScienceExplainer({ basis, source }: ScienceExplainerProp
             }}
           >
             <BookOpen
-              size={14}
+              size={16}
               strokeWidth={1.5}
               style={{ color: designTokens.colors.primary[500] }}
             />
@@ -78,7 +78,7 @@ export default function ScienceExplainer({ basis, source }: ScienceExplainerProp
         >
           <div className="flex items-start gap-2">
             <ExternalLink
-              size={14}
+              size={16}
               strokeWidth={1.5}
               style={{
                 color: designTokens.colors.text.tertiary,
