@@ -181,28 +181,76 @@ export default function HabitsPage() {
     <div>
       <Header title="습관" />
       <div className="container mx-auto px-4 py-6 max-w-4xl">
-        {/* Today's Summary */}
+        {/* Today's Summary - Warm & Emotional Design */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="bg-white border border-gray-200 rounded-lg p-5 mb-6"
+          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          style={{
+            background: 'linear-gradient(to bottom, #ffffff, #f9fafb)',
+            borderRadius: '20px',
+            padding: '24px',
+            marginBottom: '24px',
+            boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+          }}
         >
-          <div className="flex items-center justify-between mb-4">
-            <h2 className="text-lg font-semibold text-gray-900">오늘의 진행상황</h2>
-            <div className="text-2xl font-bold text-gray-900">
+          <div className="flex items-center justify-between mb-5">
+            <h2
+              className="text-xl font-semibold"
+              style={{
+                color: '#374151',
+                letterSpacing: '0.3px',
+              }}
+            >
+              오늘의 진행상황
+            </h2>
+            <div
+              className="text-3xl font-bold"
+              style={{
+                background: 'linear-gradient(135deg, #6EC1E4, #A8E6CF)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+              }}
+            >
               {completedToday}/{totalHabits}
             </div>
           </div>
           <div>
-            <div className="bg-gray-100 rounded-full h-2 overflow-hidden">
+            {/* Gradient Progress Bar */}
+            <div
+              className="rounded-full overflow-hidden"
+              style={{
+                height: '12px',
+                backgroundColor: '#F8F7F4',
+              }}
+            >
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${completionRate}%` }}
-                transition={{ duration: 0.8, ease: 'easeOut' }}
-                className="bg-gray-900 h-2 rounded-full"
+                transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="h-full"
+                style={{
+                  background: 'linear-gradient(90deg, #6EC1E4, #A8E6CF)',
+                  borderRadius: '9999px',
+                }}
               />
             </div>
-            <p className="text-xs text-gray-500 mt-2">{completionRate}% 완료</p>
+            <div className="flex items-center justify-between mt-3">
+              <p className="text-sm font-medium" style={{ color: '#6b7280' }}>
+                {completionRate}% 완료
+              </p>
+              {completionRate >= 50 && (
+                <motion.p
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  className="text-sm font-medium"
+                  style={{ color: '#6EC1E4' }}
+                >
+                  You're doing great! 🌟
+                </motion.p>
+              )}
+            </div>
           </div>
         </motion.div>
 

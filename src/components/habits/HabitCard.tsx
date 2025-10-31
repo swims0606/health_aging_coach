@@ -31,59 +31,89 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
   const progress = Math.min((habit.totalCompletions / habit.targetDays) * 100, 100);
 
   const handleToggle = () => {
-    hapticFeedback.light();
+    hapticFeedback.medium();
     onToggle(habit.id);
+  };
+
+  // Create gradient for progress bar
+  const getProgressGradient = () => {
+    if (habit.category === 'water') return 'linear-gradient(90deg, #6EC1E4, #A8E6CF)';
+    if (habit.category === 'exercise') return 'linear-gradient(90deg, #A8E6CF, #c4b5fd)';
+    if (habit.category === 'nutrition') return 'linear-gradient(90deg, #FFD3B6, #fde68a)';
+    if (habit.category === 'sleep') return 'linear-gradient(90deg, #c4b5fd, #fda4c0)';
+    if (habit.category === 'stress') return 'linear-gradient(90deg, #fda4c0, #FFD3B6)';
+    return `linear-gradient(90deg, ${habitColor}, ${habitColor})`;
+  };
+
+  // Get subtle background tint based on category
+  const getCardBackground = () => {
+    if (habit.category === 'water') return 'rgba(110, 193, 228, 0.03)';
+    if (habit.category === 'exercise') return 'rgba(168, 230, 207, 0.03)';
+    if (habit.category === 'nutrition') return 'rgba(255, 211, 182, 0.03)';
+    if (habit.category === 'sleep') return 'rgba(196, 181, 253, 0.03)';
+    if (habit.category === 'stress') return 'rgba(253, 164, 192, 0.03)';
+    return '#ffffff';
   };
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.03, duration: 0.2 }}
-      className="bg-white hover:bg-gray-50 transition-colors"
+      transition={{
+        delay: index * 0.08,
+        duration: 0.5,
+        ease: [0.25, 0.46, 0.45, 0.94]
+      }}
+      whileHover={{ y: -2 }}
       style={{
-        borderBottom: `1px solid ${designTokens.colors.gray[200]}`,
-        padding: `${designTokens.spacing.lg} ${designTokens.spacing.md}`,
+        background: `linear-gradient(to bottom, #ffffff, ${getCardBackground()})`,
+        borderRadius: '20px',
+        padding: '20px',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+        marginBottom: '12px',
       }}
     >
-      <div className="flex items-center gap-3">
-        {/* Color Indicator + Check Button */}
+      <div className="flex items-start gap-4">
+        {/* Check Button with Smooth Animation */}
         <button
           onClick={handleToggle}
           className="flex-shrink-0 relative"
           style={{
-            width: '32px',
-            height: '32px',
+            width: '48px',
+            height: '48px',
           }}
         >
           {/* Circle with habit color */}
-          <div
-            className="absolute inset-0 rounded-full transition-all"
+          <motion.div
+            className="absolute inset-0 rounded-full"
             style={{
-              border: `2px solid ${habit.completedToday ? habitColor : designTokens.colors.gray[300]}`,
-              backgroundColor: habit.completedToday ? habitColor : 'transparent',
+              border: `3px solid ${habitColor}`,
+              backgroundColor: habit.completedToday ? habitColor : '#ffffff',
             }}
+            whileTap={{ scale: 0.9 }}
+            transition={{ type: 'spring', stiffness: 300, damping: 20 }}
           />
 
-          {/* Checkmark */}
+          {/* Checkmark with gentle pop animation */}
           {habit.completedToday && (
             <motion.div
-              initial={{ scale: 0 }}
-              animate={{ scale: 1 }}
-              transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+              initial={{ scale: 0, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0, opacity: 0 }}
+              transition={{ type: 'spring', stiffness: 200, damping: 15 }}
               className="absolute inset-0 flex items-center justify-center"
             >
               <svg
-                width="16"
-                height="16"
-                viewBox="0 0 16 16"
+                width="20"
+                height="20"
+                viewBox="0 0 20 20"
                 fill="none"
                 stroke="white"
                 strokeWidth="2.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               >
-                <polyline points="3,8 6,11 13,4" />
+                <polyline points="4,10 8,14 16,6" />
               </svg>
             </motion.div>
           )}
@@ -91,28 +121,63 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-baseline gap-2 mb-1">
-            <h3 className="font-medium text-gray-900 text-base">{habit.name}</h3>
-            {habit.streak > 0 && (
-              <div className="flex items-center gap-1">
-                <Flame className="w-3.5 h-3.5 text-orange-500" />
-                <span className="text-xs font-semibold text-orange-500">{habit.streak}</span>
-              </div>
-            )}
+          <div className="flex items-baseline gap-2 mb-2">
+            <h3
+              className="font-semibold text-base"
+              style={{
+                color: '#374151',
+                letterSpacing: '0.3px',
+              }}
+            >
+              {habit.name}
+            </h3>
           </div>
 
-          {/* Progress bar */}
-          <div className="flex items-center gap-2">
-            <div className="flex-1 bg-gray-100 rounded-full overflow-hidden" style={{ height: '4px' }}>
+          {/* Streak Display */}
+          {habit.streak > 0 && (
+            <motion.div
+              initial={{ opacity: 0, x: -10 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-1.5 mb-3"
+            >
+              <Flame className="w-4 h-4" style={{ color: '#FFD3B6' }} />
+              <span
+                className="text-sm font-medium"
+                style={{ color: '#f97316' }}
+              >
+                {habit.streak}일 연속
+              </span>
+            </motion.div>
+          )}
+
+          {/* Progress bar with gradient */}
+          <div className="flex items-center gap-3 mt-3">
+            <div
+              className="flex-1 rounded-full overflow-hidden"
+              style={{
+                height: '8px',
+                backgroundColor: '#F8F7F4',
+              }}
+            >
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${progress}%` }}
-                transition={{ duration: 0.5, ease: 'easeOut' }}
-                className="h-full rounded-full"
-                style={{ backgroundColor: habitColor }}
+                transition={{ duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                className="h-full"
+                style={{
+                  background: getProgressGradient(),
+                  borderRadius: '9999px',
+                }}
               />
             </div>
-            <span className="text-xs text-gray-500 font-medium" style={{ minWidth: '50px', textAlign: 'right' }}>
+            <span
+              className="text-sm font-medium"
+              style={{
+                minWidth: '60px',
+                textAlign: 'right',
+                color: '#6b7280',
+              }}
+            >
               {habit.totalCompletions}/{habit.targetDays}
             </span>
           </div>
@@ -122,9 +187,10 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
         {onCalendarClick && (
           <button
             onClick={() => onCalendarClick(habit)}
-            className="flex-shrink-0 p-2 hover:bg-gray-100 rounded-md transition-colors"
+            className="flex-shrink-0 p-2 hover:bg-gray-100 rounded-full transition-all duration-300"
+            style={{ color: '#9ca3af' }}
           >
-            <Calendar className="w-5 h-5 text-gray-400" />
+            <Calendar className="w-5 h-5" />
           </button>
         )}
       </div>

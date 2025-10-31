@@ -18,17 +18,27 @@ export default function MotivationalQuote() {
     <motion.div
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5 }}
-      className="bg-gray-50 border border-gray-200 rounded-lg p-5"
+      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="relative overflow-hidden"
+      style={{
+        background: 'linear-gradient(135deg, #FFD3B6 0%, #fde68a 100%)',
+        borderRadius: '20px',
+        padding: '24px',
+        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+      }}
     >
-      <div className="flex items-start gap-3">
-        <div className="bg-white rounded p-2 border border-gray-200">
-          <Sparkles className="w-4 h-4 text-gray-600" />
-        </div>
-        <div className="flex-1">
-          <p className="text-xs font-semibold text-gray-500 mb-1">오늘의 동기부여</p>
-          <p className="text-sm font-medium text-gray-900">{quote}</p>
-        </div>
+      {/* Decorative sun icon */}
+      <div className="absolute top-4 right-4 opacity-30">
+        <Sparkles className="w-8 h-8 text-white" />
+      </div>
+
+      <div className="relative z-10">
+        <p className="text-xs font-medium text-gray-700 mb-2 tracking-wide uppercase opacity-80">
+          오늘의 동기부여
+        </p>
+        <p className="text-base font-normal text-gray-800 italic leading-relaxed" style={{ letterSpacing: '0.3px' }}>
+          "{quote}"
+        </p>
       </div>
     </motion.div>
   );
