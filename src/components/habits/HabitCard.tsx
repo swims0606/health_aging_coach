@@ -43,20 +43,19 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, onDelete, 
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 10 }}
+      initial={{ opacity: 0, y: 8 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
-        delay: index * 0.05,
+        delay: index * 0.03,
         duration: 0.2,
         ease: 'easeInOut'
       }}
       whileHover={{ y: -2 }}
       style={{
         backgroundColor: designTokens.colors.background.card,
-        borderRadius: designTokens.borderRadius.lg,
-        padding: designTokens.spacing.cardPaddingV,
+        borderRadius: '12px',
+        padding: '14px 18px',
         boxShadow: designTokens.shadows.md,
-        marginBottom: designTokens.spacing.md,
       }}
     >
       <div className="flex items-start gap-3">

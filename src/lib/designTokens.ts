@@ -94,20 +94,20 @@ export const designTokens = {
     },
   },
 
-  // 8px Baseline Grid Spacing
+  // 8px Baseline Grid Spacing (Optimized for viewport fit)
   spacing: {
     xs: '4px',
     sm: '8px',
-    md: '12px',
-    lg: '16px',
-    xl: '20px',
-    '2xl': '32px', // Section margin
-    '3xl': '48px',
-    '4xl': '64px',
-    cardPaddingH: '24px', // Increased from 20px for better text breathing room
-    cardPaddingV: '20px', // Increased from 16px
-    componentGap: '12px',
-    sectionMargin: '32px',
+    md: '10px',         // Reduced from 12px (~17%)
+    lg: '14px',         // Reduced from 16px (~13%)
+    xl: '18px',         // Reduced from 20px (~10%)
+    '2xl': '26px',      // Reduced from 32px (~19%)
+    '3xl': '40px',      // Reduced from 48px (~17%)
+    '4xl': '54px',      // Reduced from 64px (~16%)
+    cardPaddingH: '20px', // Reduced from 24px (~17%)
+    cardPaddingV: '16px', // Reduced from 20px (~20%)
+    componentGap: '10px', // Reduced from 12px (~17%)
+    sectionMargin: '20px', // Reduced from 32px (~38% for better viewport fit)
   },
 
   // Border Radius - Habit Space

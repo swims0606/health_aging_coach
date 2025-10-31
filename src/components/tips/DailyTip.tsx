@@ -34,21 +34,21 @@ export default function DailyTip({ habits }: DailyTipProps) {
       transition={{ duration: 0.2, ease: 'easeInOut' }}
       style={{
         backgroundColor: designTokens.colors.background.card,
-        borderRadius: designTokens.borderRadius.lg,
-        padding: `${designTokens.spacing.cardPaddingV} ${designTokens.spacing.cardPaddingH}`,
+        borderRadius: '12px',
+        padding: '14px 20px',
         boxShadow: designTokens.shadows.md,
-        marginBottom: designTokens.spacing.sectionMargin,
+        marginBottom: '16px',
       }}
     >
       <div
         className="flex items-start justify-between"
-        style={{ marginBottom: designTokens.spacing.md }}
+        style={{ marginBottom: '8px' }}
       >
         <div className="flex items-center gap-2">
           <div
             style={{
-              width: '32px',
-              height: '32px',
+              width: '28px',
+              height: '28px',
               borderRadius: designTokens.borderRadius.md,
               backgroundColor: `${designTokens.colors.accent[400]}20`,
               display: 'flex',
@@ -57,17 +57,17 @@ export default function DailyTip({ habits }: DailyTipProps) {
             }}
           >
             <Sparkles
-              size={16}
+              size={14}
               strokeWidth={1.5}
               style={{ color: designTokens.colors.accent[400] }}
             />
           </div>
           <h3
             style={{
-              fontSize: designTokens.typography.fontSize.h3,
-              fontWeight: designTokens.typography.fontWeight.semibold,
+              fontSize: '16px',
+              fontWeight: 600,
               color: designTokens.colors.text.primary,
-              letterSpacing: designTokens.typography.letterSpacing.tight,
+              letterSpacing: '-0.2px',
               margin: 0,
             }}
           >
@@ -77,8 +77,8 @@ export default function DailyTip({ habits }: DailyTipProps) {
         <button
           onClick={loadTip}
           style={{
-            width: '32px',
-            height: '32px',
+            width: '28px',
+            height: '28px',
             borderRadius: designTokens.borderRadius.md,
             border: 'none',
             background: 'none',
@@ -96,7 +96,7 @@ export default function DailyTip({ habits }: DailyTipProps) {
           }}
         >
           <RefreshCw
-            size={16}
+            size={14}
             strokeWidth={1.5}
             style={{ color: designTokens.colors.text.tertiary }}
           />
@@ -106,21 +106,21 @@ export default function DailyTip({ habits }: DailyTipProps) {
       <div>
         <h4
           style={{
-            fontSize: designTokens.typography.fontSize.body,
-            fontWeight: designTokens.typography.fontWeight.medium,
+            fontSize: '15px',
+            fontWeight: 500,
             color: designTokens.colors.text.primary,
             margin: 0,
-            marginBottom: '8px',
+            marginBottom: '6px',
           }}
         >
           {tip.title}
         </h4>
         <p
           style={{
-            fontSize: designTokens.typography.fontSize.body,
-            fontWeight: designTokens.typography.fontWeight.normal,
+            fontSize: '14px',
+            fontWeight: 400,
             color: designTokens.colors.text.secondary,
-            lineHeight: designTokens.typography.lineHeight.normal,
+            lineHeight: 1.5,
             margin: 0,
           }}
         >

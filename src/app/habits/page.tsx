@@ -199,35 +199,46 @@ export default function HabitsPage() {
   }
 
   return (
-    <div>
+    <div style={{ height: '100vh', display: 'flex', flexDirection: 'column', overflow: 'hidden' }}>
       <Header title="습관" />
-      <div className="container mx-auto px-4 py-6 max-w-4xl">
-        {/* Today's Summary - Warm & Emotional Design */}
+      <div
+        className="container mx-auto px-4 max-w-4xl"
+        style={{
+          flex: 1,
+          overflowY: 'auto',
+          paddingTop: '16px',
+          paddingBottom: '80px',
+        }}
+      >
+        {/* Today's Summary - Compact Design */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 10 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
+          transition={{ duration: 0.3, ease: 'easeInOut' }}
           style={{
             background: 'linear-gradient(to bottom, #ffffff, #f9fafb)',
-            borderRadius: '20px',
-            padding: '24px',
-            marginBottom: '24px',
+            borderRadius: '16px',
+            padding: '16px 20px',
+            marginBottom: '16px',
             boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
           }}
         >
-          <div className="flex items-center justify-between mb-5">
+          <div className="flex items-center justify-between mb-3">
             <h2
-              className="text-xl font-semibold"
               style={{
+                fontSize: '18px',
+                fontWeight: 600,
                 color: '#374151',
-                letterSpacing: '0.3px',
+                letterSpacing: '-0.2px',
+                margin: 0,
               }}
             >
               오늘의 진행상황
             </h2>
             <div
-              className="text-3xl font-bold"
               style={{
+                fontSize: '24px',
+                fontWeight: 700,
                 background: 'linear-gradient(135deg, #6EC1E4, #A8E6CF)',
                 WebkitBackgroundClip: 'text',
                 WebkitTextFillColor: 'transparent',
@@ -238,18 +249,18 @@ export default function HabitsPage() {
             </div>
           </div>
           <div>
-            {/* Gradient Progress Bar */}
+            {/* Gradient Progress Bar - Compact */}
             <div
               className="rounded-full overflow-hidden"
               style={{
-                height: '12px',
+                height: '8px',
                 backgroundColor: '#F8F7F4',
               }}
             >
               <motion.div
                 initial={{ width: 0 }}
                 animate={{ width: `${completionRate}%` }}
-                transition={{ duration: 1, ease: [0.25, 0.46, 0.45, 0.94] }}
+                transition={{ duration: 0.8, ease: 'easeInOut' }}
                 className="h-full"
                 style={{
                   background: 'linear-gradient(90deg, #6EC1E4, #A8E6CF)',
@@ -257,16 +268,15 @@ export default function HabitsPage() {
                 }}
               />
             </div>
-            <div className="flex items-center justify-between mt-3">
-              <p className="text-sm font-medium" style={{ color: '#6b7280' }}>
+            <div className="flex items-center justify-between" style={{ marginTop: '8px' }}>
+              <p style={{ fontSize: '14px', fontWeight: 500, color: '#6b7280', margin: 0 }}>
                 {completionRate}% 완료
               </p>
               {completionRate >= 50 && (
                 <motion.p
                   initial={{ opacity: 0, scale: 0.8 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  className="text-sm font-medium"
-                  style={{ color: '#6EC1E4' }}
+                  style={{ fontSize: '14px', fontWeight: 500, color: '#6EC1E4', margin: 0 }}
                 >
                   You're doing great! 🌟
                 </motion.p>
@@ -278,8 +288,8 @@ export default function HabitsPage() {
         {/* Daily Tip */}
         <DailyTip habits={habits.filter(h => h.isActive !== false)} />
 
-        {/* Action Buttons */}
-        <div className="flex gap-3 mb-6">
+        {/* Action Buttons - Compact */}
+        <div className="flex gap-2" style={{ marginBottom: '12px' }}>
           <div className="flex-1">
             <TouchableButton
               onClick={() => setShowHabitLibrary(true)}
@@ -301,16 +311,16 @@ export default function HabitsPage() {
           </TouchableButton>
         </div>
 
-        {/* Category Filter */}
-        <div className="mb-6">
+        {/* Category Filter - Compact */}
+        <div style={{ marginBottom: '12px' }}>
           <CategoryFilter
             selectedCategory={selectedCategory}
             onCategoryChange={setSelectedCategory}
           />
         </div>
 
-        {/* Habits List */}
-        <div className="space-y-4 mb-20">
+        {/* Habits List - Compact spacing */}
+        <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
           <AnimatePresence mode="popLayout">
             {displayHabits.length > 0 ? (
               displayHabits.map((habit, index) => (
@@ -335,7 +345,7 @@ export default function HabitsPage() {
             )}
           </AnimatePresence>
 
-          {/* View All Button */}
+          {/* View All Button - Compact */}
           {!showAllHabits && filteredHabits.length > 5 && (
             <motion.button
               initial={{ opacity: 0 }}
@@ -344,12 +354,12 @@ export default function HabitsPage() {
               style={{
                 width: '100%',
                 minHeight: '44px',
-                padding: '12px 24px',
-                borderRadius: '16px',
+                padding: '10px 20px',
+                borderRadius: '12px',
                 border: '1px solid rgba(0, 0, 0, 0.05)',
                 backgroundColor: '#FFFFFF',
                 color: '#6B7280',
-                fontSize: '16px',
+                fontSize: '15px',
                 fontWeight: 500,
                 cursor: 'pointer',
                 transition: 'all 200ms ease-in-out',
