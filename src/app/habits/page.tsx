@@ -11,6 +11,7 @@ import HabitCalendarView from '@/components/calendar/HabitCalendarView';
 import HabitLibraryModal from '@/components/habit-management/HabitLibraryModal';
 import TipCard from '@/components/tips/TipCard';
 import DailyTip from '@/components/tips/DailyTip';
+import TouchableButton from '@/components/native-ui/TouchableButton';
 import { Habit, HabitCompletion, HabitCategory, HabitTemplate } from '@/lib/types';
 import {
   loadHabits,
@@ -216,20 +217,25 @@ export default function HabitsPage() {
 
         {/* Action Buttons */}
         <div className="flex gap-3 mb-6">
-          <button
-            onClick={() => setShowHabitLibrary(true)}
-            className="flex-1 bg-primary-500 hover:bg-primary-600 text-white font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-md"
-          >
-            <Plus className="w-5 h-5" />
-            습관 추가
-          </button>
-          <button
+          <div className="flex-1">
+            <TouchableButton
+              onClick={() => setShowHabitLibrary(true)}
+              variant="primary"
+              size="lg"
+              fullWidth
+              icon={<Plus className="w-5 h-5" />}
+            >
+              습관 추가
+            </TouchableButton>
+          </div>
+          <TouchableButton
             onClick={() => setShowTips(!showTips)}
-            className="bg-yellow-500 hover:bg-yellow-600 text-white font-medium py-3 px-4 rounded-xl flex items-center justify-center gap-2 transition-colors shadow-md"
+            variant="secondary"
+            size="lg"
+            icon={<Lightbulb className="w-5 h-5" />}
           >
-            <Lightbulb className="w-5 h-5" />
             팁
-          </button>
+          </TouchableButton>
         </div>
 
         {/* Category Filter */}

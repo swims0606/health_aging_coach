@@ -1,10 +1,11 @@
 'use client';
 
 import React from 'react';
-import { motion } from 'framer-motion';
 import { Droplets, Activity, Apple, Moon, Heart, Flame, Calendar } from 'lucide-react';
 import { Habit, HabitCategory } from '@/lib/types';
-import CheckButton from './CheckButton';
+import AppCard from '@/components/native-ui/AppCard';
+import HabitCircle from '@/components/native-ui/HabitCircle';
+import { designTokens } from '@/lib/designTokens';
 
 interface HabitCardProps {
   habit: Habit;
@@ -21,12 +22,12 @@ const categoryIcons: Record<HabitCategory, React.ElementType> = {
   stress: Heart,
 };
 
-const categoryColors: Record<HabitCategory, { icon: string; bg: string }> = {
-  water: { icon: 'text-blue-500', bg: 'bg-blue-100' },
-  exercise: { icon: 'text-green-500', bg: 'bg-green-100' },
-  nutrition: { icon: 'text-orange-500', bg: 'bg-orange-100' },
-  sleep: { icon: 'text-purple-500', bg: 'bg-purple-100' },
-  stress: { icon: 'text-pink-500', bg: 'bg-pink-100' },
+const categoryColors: Record<HabitCategory, { icon: string; bg: string; main: string }> = {
+  water: { icon: 'text-blue-500', bg: 'bg-blue-50', main: '#3b82f6' },
+  exercise: { icon: 'text-green-500', bg: 'bg-green-50', main: '#22c55e' },
+  nutrition: { icon: 'text-orange-500', bg: 'bg-orange-50', main: '#f97316' },
+  sleep: { icon: 'text-purple-500', bg: 'bg-purple-50', main: '#a855f7' },
+  stress: { icon: 'text-pink-500', bg: 'bg-pink-50', main: '#ec4899' },
 };
 
 const difficultyLabels: Record<string, string> = {
@@ -40,58 +41,73 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
   const colors = categoryColors[habit.category];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ delay: index * 0.05, duration: 0.3 }}
-      className={`bg-white rounded-xl p-4 shadow-sm border border-gray-100 hover:shadow-md transition-shadow ${
-        habit.completedToday ? 'ring-2 ring-primary-200' : ''
-      }`}
+    <AppCard
+      index={index}
+      padding="none"
+      shadow="card"
+      className={habit.completedToday ? 'ring-2 ring-primary-200' : ''}
     >
-      <div className="flex items-start gap-4">
+      <div className="p-4 flex items-center gap-4">
         {/* Icon */}
-        <div className={`${colors.bg} rounded-lg p-3 flex-shrink-0`}>
-          <Icon className={`w-6 h-6 ${colors.icon}`} />
+        <div
+          className={`${colors.bg} flex-shrink-0 flex items-center justify-center`}
+          style={{
+            width: '56px',
+            height: '56px',
+            borderRadius: designTokens.borderRadius.lg,
+          }}
+        >
+          <Icon className={`w-7 h-7 ${colors.icon}`} />
         </div>
 
         {/* Content */}
         <div className="flex-1 min-w-0">
-          <h3 className="font-semibold text-gray-900 mb-1">{habit.name}</h3>
-
-          <div className="flex items-center gap-3 mb-3">
-            {/* Streak */}
+          <div className="flex items-start justify-between mb-2">
+            <h3 className="font-semibold text-gray-900">{habit.name}</h3>
             {habit.streak > 0 && (
-              <div className="flex items-center gap-1">
+              <div className="flex items-center gap-1 px-2 py-1 bg-orange-50 rounded-full">
                 <Flame className="w-4 h-4 text-orange-500" />
-                <span className="text-sm font-semibold text-orange-500">
-                  {habit.streak}일 연속
-                </span>
+                <span className="text-sm font-bold text-orange-500">{habit.streak}</span>
               </div>
             )}
-
-            {/* Difficulty */}
-            <span className="text-xs text-gray-500 bg-gray-100 px-2 py-1 rounded">
-              {difficultyLabels[habit.difficulty]}
-            </span>
           </div>
 
-          {/* Progress */}
+          {/* Tags */}
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-xs text-gray-500 px-2 py-1 bg-gray-100 rounded-full">
+              {difficultyLabels[habit.difficulty]}
+            </span>
+            {habit.tags && habit.tags.length > 0 && (
+              <span className="text-xs text-gray-500">
+                {habit.tags[0]}
+              </span>
+            )}
+          </div>
+
+          {/* Progress Bar */}
           <div className="mb-2">
             <div className="flex items-center justify-between text-xs text-gray-600 mb-1">
               <span>진행률</span>
-              <span>{Math.round((habit.totalCompletions / habit.targetDays) * 100)}%</span>
+              <span className="font-medium">
+                {habit.totalCompletions}/{habit.targetDays}일
+              </span>
             </div>
-            <div className="w-full bg-gray-200 rounded-full h-1.5 overflow-hidden">
-              <motion.div
-                initial={{ width: 0 }}
-                animate={{ width: `${Math.min((habit.totalCompletions / habit.targetDays) * 100, 100)}%` }}
-                transition={{ duration: 0.5, delay: index * 0.05 }}
-                className="bg-primary-500 h-1.5 rounded-full"
+            <div
+              className="w-full bg-gray-100 overflow-hidden"
+              style={{
+                height: '6px',
+                borderRadius: designTokens.borderRadius.full,
+              }}
+            >
+              <div
+                className="h-full transition-all duration-500"
+                style={{
+                  width: `${Math.min((habit.totalCompletions / habit.targetDays) * 100, 100)}%`,
+                  backgroundColor: colors.main,
+                  borderRadius: designTokens.borderRadius.full,
+                }}
               />
             </div>
-            <p className="text-xs text-gray-500 mt-1">
-              {habit.totalCompletions}/{habit.targetDays}일 완료
-            </p>
           </div>
         </div>
 
@@ -101,20 +117,25 @@ export default function HabitCard({ habit, onToggle, onCalendarClick, index }: H
           {onCalendarClick && (
             <button
               onClick={() => onCalendarClick(habit)}
-              className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg transition-colors"
-              title="캘린더 보기"
+              className="p-2 bg-gray-50 hover:bg-gray-100 rounded-lg transition-colors"
+              style={{
+                minWidth: designTokens.touchTargets.minimum,
+                minHeight: designTokens.touchTargets.minimum,
+              }}
             >
               <Calendar className="w-5 h-5 text-gray-600" />
             </button>
           )}
 
-          {/* Check Button */}
-          <CheckButton
+          {/* Habit Circle Check Button */}
+          <HabitCircle
             isCompleted={habit.completedToday}
             onToggle={() => onToggle(habit.id)}
+            size="md"
+            color={colors.main}
           />
         </div>
       </div>
-    </motion.div>
+    </AppCard>
   );
 }
