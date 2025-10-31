@@ -2,6 +2,7 @@
 
 import React from 'react';
 import { BookOpen, ExternalLink } from 'lucide-react';
+import { designTokens } from '@/lib/designTokens';
 
 interface ScienceExplainerProps {
   basis?: string;
@@ -13,33 +14,54 @@ export default function ScienceExplainer({ basis, source }: ScienceExplainerProp
 
   return (
     <div
-      className="rounded-lg p-4"
       style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.6)',
-        backdropFilter: 'blur(10px)',
+        backgroundColor: designTokens.colors.background.card,
+        borderRadius: designTokens.borderRadius.lg,
+        padding: designTokens.spacing.cardPaddingV,
+        border: `1px solid ${designTokens.colors.divider}`,
       }}
     >
       {/* Scientific Basis */}
-      <div className="mb-3">
-        <div className="flex items-center gap-2 mb-2">
+      <div style={{ marginBottom: '12px' }}>
+        <div className="flex items-center gap-2" style={{ marginBottom: '8px' }}>
           <div
-            className="p-1.5 rounded"
             style={{
-              backgroundColor: 'rgba(110, 193, 228, 0.2)',
+              width: '24px',
+              height: '24px',
+              borderRadius: designTokens.borderRadius.md,
+              backgroundColor: `${designTokens.colors.primary[500]}15`,
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
-            <BookOpen className="w-4 h-4" style={{ color: '#6EC1E4' }} />
+            <BookOpen
+              size={14}
+              strokeWidth={1.5}
+              style={{ color: designTokens.colors.primary[500] }}
+            />
           </div>
           <h4
-            className="text-sm font-semibold"
-            style={{ color: '#374151', letterSpacing: '0.3px' }}
+            style={{
+              fontSize: designTokens.typography.fontSize.body,
+              fontWeight: designTokens.typography.fontWeight.semibold,
+              color: designTokens.colors.text.primary,
+              letterSpacing: designTokens.typography.letterSpacing.normal,
+              margin: 0,
+            }}
           >
             과학적 근거
           </h4>
         </div>
         <p
-          className="text-sm leading-relaxed"
-          style={{ color: '#4b5563', fontWeight: 300, lineHeight: 1.6 }}
+          style={{
+            fontSize: designTokens.typography.fontSize.body,
+            fontWeight: designTokens.typography.fontWeight.normal,
+            color: designTokens.colors.text.secondary,
+            lineHeight: designTokens.typography.lineHeight.normal,
+            margin: 0,
+          }}
         >
           {basis}
         </p>
@@ -47,16 +69,43 @@ export default function ScienceExplainer({ basis, source }: ScienceExplainerProp
 
       {/* Source Citation */}
       {source && (
-        <div className="pt-3 border-t" style={{ borderColor: 'rgba(0, 0, 0, 0.08)' }}>
+        <div
+          className="pt-3 border-t"
+          style={{
+            borderColor: designTokens.colors.divider,
+            paddingTop: '12px',
+          }}
+        >
           <div className="flex items-start gap-2">
-            <ExternalLink className="w-3.5 h-3.5 mt-0.5" style={{ color: '#9ca3af' }} />
+            <ExternalLink
+              size={14}
+              strokeWidth={1.5}
+              style={{
+                color: designTokens.colors.text.tertiary,
+                marginTop: '2px',
+                flexShrink: 0,
+              }}
+            />
             <div>
-              <p className="text-xs font-medium mb-0.5" style={{ color: '#6b7280' }}>
+              <p
+                style={{
+                  fontSize: designTokens.typography.fontSize.caption,
+                  fontWeight: designTokens.typography.fontWeight.medium,
+                  color: designTokens.colors.text.secondary,
+                  margin: 0,
+                  marginBottom: '2px',
+                }}
+              >
                 출처
               </p>
               <p
-                className="text-xs italic"
-                style={{ color: '#9ca3af', fontWeight: 300 }}
+                style={{
+                  fontSize: designTokens.typography.fontSize.caption,
+                  fontWeight: designTokens.typography.fontWeight.normal,
+                  color: designTokens.colors.text.tertiary,
+                  fontStyle: 'italic',
+                  margin: 0,
+                }}
               >
                 {source}
               </p>
@@ -66,18 +115,35 @@ export default function ScienceExplainer({ basis, source }: ScienceExplainerProp
       )}
 
       {/* Trust indicator */}
-      <div className="mt-3 pt-3 border-t" style={{ borderColor: 'rgba(0, 0, 0, 0.08)' }}>
+      <div
+        className="mt-3 pt-3 border-t"
+        style={{
+          borderColor: designTokens.colors.divider,
+          marginTop: '12px',
+          paddingTop: '12px',
+        }}
+      >
         <div className="flex items-center gap-2">
-          <div className="flex gap-0.5">
+          <div className="flex gap-1">
             {[1, 2, 3, 4, 5].map((i) => (
               <div
                 key={i}
-                className="w-1.5 h-1.5 rounded-full"
-                style={{ backgroundColor: '#6EC1E4' }}
+                style={{
+                  width: '4px',
+                  height: '4px',
+                  borderRadius: '50%',
+                  backgroundColor: designTokens.colors.primary[500],
+                }}
               />
             ))}
           </div>
-          <span className="text-xs" style={{ color: '#6b7280', fontWeight: 500 }}>
+          <span
+            style={{
+              fontSize: designTokens.typography.fontSize.caption,
+              fontWeight: designTokens.typography.fontWeight.medium,
+              color: designTokens.colors.text.secondary,
+            }}
+          >
             검증된 과학적 연구 기반
           </span>
         </div>

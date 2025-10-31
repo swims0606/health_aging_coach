@@ -4,6 +4,7 @@ import React from 'react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
 import { Home, CheckCircle, School, TrendingUp } from 'lucide-react';
+import { designTokens } from '@/lib/designTokens';
 
 const navItems = [
   {
@@ -35,11 +36,11 @@ export default function BottomNav() {
     <nav
       className="fixed bottom-0 left-0 right-0 z-50 safe-area-inset-bottom"
       style={{
-        backgroundColor: 'rgba(255, 255, 255, 0.8)',
+        backgroundColor: 'rgba(255, 255, 255, 0.9)',
         backdropFilter: 'blur(20px)',
         WebkitBackdropFilter: 'blur(20px)',
-        borderTop: '1px solid rgba(232, 230, 227, 0.5)',
-        boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.03)',
+        borderTop: `1px solid ${designTokens.colors.divider}`,
+        boxShadow: '0 -2px 8px rgba(0, 0, 0, 0.04)',
       }}
     >
       <div className="grid grid-cols-4 h-16">
@@ -51,9 +52,12 @@ export default function BottomNav() {
             <Link
               key={item.name}
               href={item.href}
-              className="flex flex-col items-center justify-center gap-1 transition-all duration-300 relative"
+              className="flex flex-col items-center justify-center gap-1 relative"
               style={{
-                color: isActive ? '#6EC1E4' : '#737373',
+                color: isActive
+                  ? designTokens.colors.primary[500]
+                  : designTokens.colors.text.tertiary,
+                transition: `color ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
               }}
             >
               {/* Active indicator dot */}
@@ -64,21 +68,24 @@ export default function BottomNav() {
                     width: '4px',
                     height: '4px',
                     borderRadius: '50%',
-                    backgroundColor: '#6EC1E4',
+                    backgroundColor: designTokens.colors.primary[500],
                   }}
                 />
               )}
               <Icon
-                className="h-5 w-5 transition-all duration-300"
+                size={20}
+                strokeWidth={isActive ? 2 : 1.5}
                 style={{
-                  strokeWidth: isActive ? 2.5 : 2,
+                  transition: `all ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
                 }}
               />
               <span
-                className="text-xs transition-all duration-300"
                 style={{
-                  fontWeight: isActive ? 500 : 400,
-                  fontSize: '12px',
+                  fontSize: designTokens.typography.fontSize.caption,
+                  fontWeight: isActive
+                    ? designTokens.typography.fontWeight.medium
+                    : designTokens.typography.fontWeight.normal,
+                  transition: `font-weight ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
                 }}
               >
                 {item.name}

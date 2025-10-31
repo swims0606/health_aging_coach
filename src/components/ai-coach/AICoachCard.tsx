@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Info, ChevronDown, ChevronUp } from 'lucide-react';
+import { Lightbulb, ChevronDown, ChevronUp } from 'lucide-react';
 import { AICoachMessage } from '@/lib/types';
 import ScienceExplainer from './ScienceExplainer';
 import { designTokens } from '@/lib/designTokens';
@@ -12,128 +12,183 @@ interface AICoachCardProps {
   onRefresh?: () => void;
 }
 
-const getMessageIcon = (type: string) => {
-  const icons: { [key: string]: string } = {
-    nutrition: '🥗',
-    exercise: '💪',
-    sleep: '😴',
-    stress: '🧘‍♀️',
-    habit: '✅',
-    encouragement: '🎉',
-    water: '💧',
+const getMessageColor = (type: string) => {
+  const colors: { [key: string]: string } = {
+    nutrition: designTokens.colors.secondary[500], // Green
+    exercise: designTokens.colors.primary[500], // Blue
+    sleep: designTokens.colors.lavender[300], // Lavender
+    stress: designTokens.colors.accent[400], // Beige
+    habit: designTokens.colors.primary[500],
+    encouragement: designTokens.colors.secondary[500],
+    water: designTokens.colors.primary[500],
   };
-  return icons[type] || '💡';
-};
-
-const getMessageGradient = (type: string) => {
-  const gradients: { [key: string]: string } = {
-    nutrition: 'linear-gradient(135deg, #FFD3B6, #fde68a)',
-    exercise: 'linear-gradient(135deg, #A8E6CF, #c4b5fd)',
-    sleep: 'linear-gradient(135deg, #c4b5fd, #fda4c0)',
-    stress: 'linear-gradient(135deg, #fda4c0, #FFD3B6)',
-    habit: 'linear-gradient(135deg, #6EC1E4, #A8E6CF)',
-    encouragement: 'linear-gradient(135deg, #FFD3B6, #A8E6CF)',
-    water: 'linear-gradient(135deg, #6EC1E4, #A8E6CF)',
-  };
-  return gradients[type] || 'linear-gradient(135deg, #6EC1E4, #A8E6CF)';
+  return colors[type] || designTokens.colors.primary[500];
 };
 
 export default function AICoachCard({ message, onRefresh }: AICoachCardProps) {
   const [showScience, setShowScience] = useState(false);
-
-  const icon = getMessageIcon(message.type);
-  const gradient = getMessageGradient(message.type);
+  const accentColor = getMessageColor(message.type);
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="relative overflow-hidden"
+      transition={{ duration: 0.2, ease: 'easeInOut' }}
       style={{
-        background: gradient,
-        borderRadius: '20px',
-        padding: '24px',
-        boxShadow: '0 4px 12px rgba(0, 0, 0, 0.06)',
-        marginBottom: '24px',
+        backgroundColor: designTokens.colors.background.card,
+        borderRadius: designTokens.borderRadius.lg,
+        padding: `${designTokens.spacing.cardPaddingV} ${designTokens.spacing.cardPaddingH}`,
+        boxShadow: designTokens.shadows.md,
+        marginBottom: designTokens.spacing.sectionMargin,
       }}
     >
-      {/* Decorative icon */}
-      <div className="absolute top-4 right-4 opacity-20 text-5xl">
-        {icon}
-      </div>
+      {/* Header with accent bar */}
+      <div className="flex items-start gap-3 mb-3">
+        {/* Accent indicator */}
+        <div
+          style={{
+            width: '4px',
+            height: '40px',
+            backgroundColor: accentColor,
+            borderRadius: '2px',
+            flexShrink: 0,
+          }}
+        />
 
-      {/* Header */}
-      <div className="relative z-10 mb-4">
-        <div className="flex items-center gap-2 mb-2">
-          <Sparkles className="w-5 h-5 text-gray-700" />
-          <h3
-            className="font-semibold text-sm uppercase tracking-wide"
-            style={{ color: '#374151', letterSpacing: '0.05em' }}
-          >
-            AI 건강 코치
-          </h3>
-          {message.priority === 'high' && (
-            <span
-              className="text-xs px-2 py-0.5 rounded-full font-medium"
+        {/* Icon */}
+        <div
+          style={{
+            width: '36px',
+            height: '36px',
+            borderRadius: designTokens.borderRadius.md,
+            backgroundColor: `${accentColor}15`,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          <Lightbulb
+            size={18}
+            strokeWidth={1.5}
+            style={{ color: accentColor }}
+          />
+        </div>
+
+        {/* Title and priority */}
+        <div className="flex-1">
+          <div className="flex items-center gap-2 mb-1">
+            <h3
               style={{
-                backgroundColor: 'rgba(255, 255, 255, 0.6)',
-                color: '#374151',
+                fontSize: designTokens.typography.fontSize.h3,
+                fontWeight: designTokens.typography.fontWeight.semibold,
+                color: designTokens.colors.text.primary,
+                letterSpacing: designTokens.typography.letterSpacing.tight,
+                lineHeight: designTokens.typography.lineHeight.tight,
+                margin: 0,
               }}
             >
-              중요
-            </span>
-          )}
+              AI 건강 코치
+            </h3>
+            {message.priority === 'high' && (
+              <span
+                style={{
+                  fontSize: designTokens.typography.fontSize.caption,
+                  fontWeight: designTokens.typography.fontWeight.medium,
+                  color: accentColor,
+                  backgroundColor: `${accentColor}15`,
+                  padding: '2px 8px',
+                  borderRadius: designTokens.borderRadius.sm,
+                }}
+              >
+                중요
+              </span>
+            )}
+          </div>
+          <p
+            style={{
+              fontSize: designTokens.typography.fontSize.caption,
+              color: designTokens.colors.text.tertiary,
+              margin: 0,
+            }}
+          >
+            {message.personalization.timeOfDay === 'morning' && '아침 맞춤 조언'}
+            {message.personalization.timeOfDay === 'lunch' && '점심 시간 조언'}
+            {message.personalization.timeOfDay === 'afternoon' && '오후 조언'}
+            {message.personalization.timeOfDay === 'evening' && '저녁 조언'}
+            {message.personalization.timeOfDay === 'night' && '밤 조언'}
+            {message.personalization.timeOfDay === 'anytime' && '맞춤 조언'}
+          </p>
         </div>
       </div>
 
       {/* Main Message */}
-      <div className="relative z-10 mb-4">
+      <div style={{ marginBottom: '16px' }}>
         <p
-          className="text-base leading-relaxed"
           style={{
-            color: '#374151',
-            fontWeight: 400,
-            lineHeight: 1.7,
+            fontSize: designTokens.typography.fontSize.body,
+            fontWeight: designTokens.typography.fontWeight.normal,
+            color: designTokens.colors.text.primary,
+            lineHeight: designTokens.typography.lineHeight.normal,
+            margin: 0,
           }}
         >
           {message.message}
         </p>
       </div>
 
-      {/* Actionable indicator */}
+      {/* Actionable badge */}
       {message.actionable && (
-        <div className="relative z-10 mb-4">
-          <div
-            className="inline-flex items-center gap-1.5 text-xs px-3 py-1.5 rounded-full"
+        <div style={{ marginBottom: '16px' }}>
+          <span
             style={{
-              backgroundColor: 'rgba(255, 255, 255, 0.5)',
-              color: '#374151',
-              fontWeight: 500,
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '4px',
+              fontSize: designTokens.typography.fontSize.caption,
+              fontWeight: designTokens.typography.fontWeight.medium,
+              color: designTokens.colors.secondary[600],
+              backgroundColor: designTokens.colors.secondary[50],
+              padding: '4px 12px',
+              borderRadius: designTokens.borderRadius.md,
             }}
           >
-            <span className="text-sm">✨</span>
-            <span>바로 실천할 수 있는 조언</span>
-          </div>
+            <span>✓</span>
+            <span>실행 가능한 조언</span>
+          </span>
         </div>
       )}
 
       {/* Science Explainer Toggle */}
       {message.scientificBasis && (
-        <div className="relative z-10">
+        <div>
           <button
             onClick={() => setShowScience(!showScience)}
-            className="flex items-center gap-2 text-sm font-medium transition-all duration-300"
             style={{
-              color: '#374151',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              fontSize: designTokens.typography.fontSize.body,
+              fontWeight: designTokens.typography.fontWeight.medium,
+              color: designTokens.colors.text.secondary,
+              background: 'none',
+              border: 'none',
+              padding: 0,
+              cursor: 'pointer',
+              transition: `color ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
+            }}
+            onMouseEnter={(e) => {
+              e.currentTarget.style.color = designTokens.colors.text.primary;
+            }}
+            onMouseLeave={(e) => {
+              e.currentTarget.style.color = designTokens.colors.text.secondary;
             }}
           >
-            <Info className="w-4 h-4" />
-            <span>과학적 근거 보기</span>
+            <span>과학적 근거</span>
             {showScience ? (
-              <ChevronUp className="w-4 h-4" />
+              <ChevronUp size={16} strokeWidth={1.5} />
             ) : (
-              <ChevronDown className="w-4 h-4" />
+              <ChevronDown size={16} strokeWidth={1.5} />
             )}
           </button>
 
@@ -143,10 +198,10 @@ export default function AICoachCard({ message, onRefresh }: AICoachCardProps) {
                 initial={{ height: 0, opacity: 0 }}
                 animate={{ height: 'auto', opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
-                transition={{ duration: 0.3 }}
-                className="overflow-hidden"
+                transition={{ duration: 0.2, ease: 'easeInOut' }}
+                style={{ overflow: 'hidden' }}
               >
-                <div className="mt-4">
+                <div style={{ marginTop: '12px' }}>
                   <ScienceExplainer
                     basis={message.scientificBasis}
                     source={message.source}
@@ -157,20 +212,6 @@ export default function AICoachCard({ message, onRefresh }: AICoachCardProps) {
           </AnimatePresence>
         </div>
       )}
-
-      {/* Personalization info */}
-      <div className="relative z-10 mt-4 pt-4 border-t border-white/30">
-        <p className="text-xs" style={{ color: '#6b7280', fontWeight: 300 }}>
-          {message.personalization.timeOfDay === 'morning' && '아침에 '}
-          {message.personalization.timeOfDay === 'lunch' && '점심 시간에 '}
-          {message.personalization.timeOfDay === 'afternoon' && '오후에 '}
-          {message.personalization.timeOfDay === 'evening' && '저녁에 '}
-          {message.personalization.timeOfDay === 'night' && '밤에 '}
-          맞춤 조언
-          {message.personalization.strugglingAreas.length > 0 &&
-            ` • ${message.personalization.strugglingAreas[0]}에 집중`}
-        </p>
-      </div>
     </motion.div>
   );
 }

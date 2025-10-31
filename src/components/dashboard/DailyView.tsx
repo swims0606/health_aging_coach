@@ -25,24 +25,20 @@ export default function DailyView() {
           value={stats.currentStreak}
           subtitle={`총 ${stats.totalDays}일 활동`}
           icon={Flame}
-          iconColor="text-orange-500"
-          iconBgColor="bg-orange-100"
+          iconColor="#f97316"
         />
         <StatsCard
           title="오늘의 습관"
           value={`${stats.habitsCompletedToday}/${stats.habitsTotalToday}`}
           subtitle="완료됨"
           icon={Target}
-          iconColor="text-primary-500"
-          iconBgColor="bg-primary-100"
         />
         <StatsCard
           title="레벨"
           value={stats.level}
           subtitle={`${stats.nextMilestone}까지 ${stats.daysToMilestone}일`}
           icon={Trophy}
-          iconColor="text-yellow-500"
-          iconBgColor="bg-yellow-100"
+          iconColor="#eab308"
         />
       </div>
 

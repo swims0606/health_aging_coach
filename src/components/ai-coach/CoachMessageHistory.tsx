@@ -6,6 +6,7 @@ import { Clock, Filter } from 'lucide-react';
 import { AICoachMessage, AICoachMessageType } from '@/lib/types';
 import { loadCoachMessageHistory } from '@/lib/aiCoach';
 import AICoachCard from './AICoachCard';
+import { designTokens } from '@/lib/designTokens';
 
 export default function CoachMessageHistory() {
   const [messages, setMessages] = useState<AICoachMessage[]>([]);
@@ -21,14 +22,14 @@ export default function CoachMessageHistory() {
       ? messages
       : messages.filter((m) => m.type === filter);
 
-  const filterOptions: Array<{ value: AICoachMessageType | 'all'; label: string; emoji: string }> = [
-    { value: 'all', label: '전체', emoji: '📋' },
-    { value: 'nutrition', label: '영양', emoji: '🥗' },
-    { value: 'exercise', label: '운동', emoji: '💪' },
-    { value: 'sleep', label: '수면', emoji: '😴' },
-    { value: 'stress', label: '스트레스', emoji: '🧘‍♀️' },
-    { value: 'water', label: '수분', emoji: '💧' },
-    { value: 'encouragement', label: '격려', emoji: '🎉' },
+  const filterOptions: Array<{ value: AICoachMessageType | 'all'; label: string }> = [
+    { value: 'all', label: '전체' },
+    { value: 'nutrition', label: '영양' },
+    { value: 'exercise', label: '운동' },
+    { value: 'sleep', label: '수면' },
+    { value: 'stress', label: '스트레스' },
+    { value: 'water', label: '수분' },
+    { value: 'encouragement', label: '격려' },
   ];
 
   const formatDate = (date: Date) => {
@@ -48,26 +49,55 @@ export default function CoachMessageHistory() {
   return (
     <div className="max-w-4xl mx-auto">
       {/* Header */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-2">
-          <Clock className="w-5 h-5" style={{ color: '#6EC1E4' }} />
+      <div style={{ marginBottom: designTokens.spacing.sectionMargin }}>
+        <div className="flex items-center gap-2" style={{ marginBottom: '8px' }}>
+          <Clock
+            size={20}
+            strokeWidth={1.5}
+            style={{ color: designTokens.colors.primary[500] }}
+          />
           <h2
-            className="text-xl font-semibold"
-            style={{ color: '#374151', letterSpacing: '0.3px' }}
+            style={{
+              fontSize: designTokens.typography.fontSize.h2,
+              fontWeight: designTokens.typography.fontWeight.semibold,
+              color: designTokens.colors.text.primary,
+              letterSpacing: designTokens.typography.letterSpacing.tight,
+              margin: 0,
+            }}
           >
             AI 코치 히스토리
           </h2>
         </div>
-        <p className="text-sm" style={{ color: '#6b7280', fontWeight: 300 }}>
+        <p
+          style={{
+            fontSize: designTokens.typography.fontSize.body,
+            fontWeight: designTokens.typography.fontWeight.normal,
+            color: designTokens.colors.text.secondary,
+            margin: 0,
+          }}
+        >
           과거에 받은 맞춤 조언을 다시 확인해보세요
         </p>
       </div>
 
       {/* Filter */}
-      <div className="mb-6">
-        <div className="flex items-center gap-2 mb-3">
-          <Filter className="w-4 h-4" style={{ color: '#9ca3af' }} />
-          <span className="text-sm font-medium" style={{ color: '#6b7280' }}>
+      <div style={{ marginBottom: designTokens.spacing.sectionMargin }}>
+        <div
+          className="flex items-center gap-2"
+          style={{ marginBottom: designTokens.spacing.md }}
+        >
+          <Filter
+            size={16}
+            strokeWidth={1.5}
+            style={{ color: designTokens.colors.text.tertiary }}
+          />
+          <span
+            style={{
+              fontSize: designTokens.typography.fontSize.body,
+              fontWeight: designTokens.typography.fontWeight.medium,
+              color: designTokens.colors.text.secondary,
+            }}
+          >
             카테고리 필터
           </span>
         </div>
@@ -76,16 +106,24 @@ export default function CoachMessageHistory() {
             <button
               key={option.value}
               onClick={() => setFilter(option.value)}
-              className="px-3 py-1.5 rounded-full text-sm font-medium transition-all duration-300"
               style={{
+                padding: '6px 16px',
+                borderRadius: designTokens.borderRadius.md,
+                fontSize: designTokens.typography.fontSize.body,
+                fontWeight: designTokens.typography.fontWeight.medium,
                 backgroundColor:
                   filter === option.value
-                    ? '#6EC1E4'
-                    : 'rgba(110, 193, 228, 0.1)',
-                color: filter === option.value ? '#ffffff' : '#6b7280',
+                    ? designTokens.colors.primary[500]
+                    : `${designTokens.colors.primary[500]}10`,
+                color:
+                  filter === option.value
+                    ? '#ffffff'
+                    : designTokens.colors.text.secondary,
+                border: 'none',
+                cursor: 'pointer',
+                transition: `all ${designTokens.transitions.base} ${designTokens.transitions.easing.standard}`,
               }}
             >
-              <span className="mr-1.5">{option.emoji}</span>
               {option.label}
             </button>
           ))}
@@ -93,26 +131,39 @@ export default function CoachMessageHistory() {
       </div>
 
       {/* Messages List */}
-      <div className="space-y-6">
+      <div style={{ display: 'flex', flexDirection: 'column', gap: designTokens.spacing.sectionMargin }}>
         {filteredMessages.length === 0 ? (
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            className="text-center py-12"
+            transition={{ duration: 0.2, ease: 'easeInOut' }}
+            className="text-center"
             style={{
-              background: 'linear-gradient(to bottom, #ffffff, #f9fafb)',
-              borderRadius: '20px',
+              backgroundColor: designTokens.colors.background.card,
+              borderRadius: designTokens.borderRadius.lg,
               padding: '48px 24px',
+              boxShadow: designTokens.shadows.md,
             }}
           >
-            <div className="text-6xl mb-4">📭</div>
             <p
-              className="text-base font-medium mb-2"
-              style={{ color: '#374151' }}
+              style={{
+                fontSize: designTokens.typography.fontSize.h3,
+                fontWeight: designTokens.typography.fontWeight.semibold,
+                color: designTokens.colors.text.primary,
+                margin: 0,
+                marginBottom: '8px',
+              }}
             >
               아직 메시지가 없어요
             </p>
-            <p className="text-sm" style={{ color: '#9ca3af', fontWeight: 300 }}>
+            <p
+              style={{
+                fontSize: designTokens.typography.fontSize.body,
+                fontWeight: designTokens.typography.fontWeight.normal,
+                color: designTokens.colors.text.secondary,
+                margin: 0,
+              }}
+            >
               AI 코치가 곧 맞춤 조언을 보내드릴 거예요
             </p>
           </motion.div>
@@ -123,16 +174,24 @@ export default function CoachMessageHistory() {
               {(index === 0 ||
                 formatDate(new Date(message.timestamp)) !==
                   formatDate(new Date(filteredMessages[index - 1].timestamp))) && (
-                <div className="flex items-center gap-3 mb-4">
+                <div className="flex items-center gap-3" style={{ marginBottom: designTokens.spacing.lg }}>
                   <div
-                    className="text-xs font-semibold uppercase tracking-wider"
-                    style={{ color: '#9ca3af' }}
+                    style={{
+                      fontSize: designTokens.typography.fontSize.caption,
+                      fontWeight: designTokens.typography.fontWeight.semibold,
+                      color: designTokens.colors.text.tertiary,
+                      textTransform: 'uppercase',
+                      letterSpacing: '0.5px',
+                    }}
                   >
                     {formatDate(new Date(message.timestamp))}
                   </div>
                   <div
-                    className="flex-1 h-px"
-                    style={{ backgroundColor: '#e8e6e3' }}
+                    className="flex-1"
+                    style={{
+                      height: '1px',
+                      backgroundColor: designTokens.colors.divider,
+                    }}
                   />
                 </div>
               )}
@@ -146,13 +205,24 @@ export default function CoachMessageHistory() {
       {/* Stats */}
       {filteredMessages.length > 0 && (
         <div
-          className="mt-8 p-4 rounded-lg text-center"
           style={{
-            background: 'linear-gradient(135deg, #6EC1E4, #A8E6CF)',
+            marginTop: designTokens.spacing.sectionMargin,
+            padding: designTokens.spacing.lg,
+            borderRadius: designTokens.borderRadius.lg,
+            backgroundColor: designTokens.colors.background.card,
+            border: `1px solid ${designTokens.colors.divider}`,
+            textAlign: 'center',
           }}
         >
-          <p className="text-sm font-medium" style={{ color: '#ffffff' }}>
-            총 {messages.length}개의 맞춤 조언을 받았어요 ✨
+          <p
+            style={{
+              fontSize: designTokens.typography.fontSize.body,
+              fontWeight: designTokens.typography.fontWeight.medium,
+              color: designTokens.colors.text.secondary,
+              margin: 0,
+            }}
+          >
+            총 {messages.length}개의 맞춤 조언을 받았어요
           </p>
         </div>
       )}

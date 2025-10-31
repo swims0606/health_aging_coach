@@ -1,147 +1,172 @@
-// Warm Emotional Design Tokens - Habit Space Inspired
+// Habit Space Design Tokens - Calm, Minimal, Professional
 
 export const designTokens = {
-  // Warm Pastel Color System
+  // Habit Space Color System
   colors: {
+    // Primary Blue - Trust & Focus
     primary: {
-      50: '#f0f9ff',
-      100: '#e0f4fc',
-      200: '#c5e9f9',
-      300: '#9ddef5',
-      400: '#6EC1E4', // Soft sky blue (primary)
-      500: '#6EC1E4',
-      600: '#4ba8ce',
-      700: '#3a8fb8',
-      800: '#2d7699',
-      900: '#1f5f7d',
+      50: '#eff6ff',
+      100: '#dbeafe',
+      200: '#bfdbfe',
+      300: '#93c5fd',
+      400: '#60a5fa',
+      500: '#3B82F6', // Primary blue
+      600: '#2563eb',
+      700: '#1d4ed8',
+      800: '#1e40af',
+      900: '#1e3a8a',
     },
+    // Soft Green - Growth & Health
     secondary: {
-      50: '#f0fdf6',
-      100: '#dcfce9',
-      200: '#bbf7d2',
-      300: '#A8E6CF', // Mint green
-      400: '#A8E6CF',
-      500: '#86d4b2',
-      600: '#5cb98a',
-      700: '#3a9e6f',
-      800: '#2e7d5a',
-      900: '#1f5e43',
+      50: '#f0fdf4',
+      100: '#dcfce7',
+      200: '#bbf7d0',
+      300: '#86efac',
+      400: '#4ade80',
+      500: '#10B981', // Soft green
+      600: '#059669',
+      700: '#047857',
+      800: '#065f46',
+      900: '#064e3b',
     },
+    // Sand Beige - Warm Light
     accent: {
-      50: '#fff9f5',
-      100: '#fff0e6',
-      200: '#ffe5d1',
-      300: '#FFD3B6', // Warm peach
-      400: '#FFD3B6',
-      500: '#ffb88a',
-      600: '#ff9d5e',
-      700: '#f58142',
-      800: '#d96a2e',
-      900: '#b5551f',
+      50: '#fefce8',
+      100: '#fef9c3',
+      200: '#fef08a',
+      300: '#fde047',
+      400: '#FCDDB0', // Sand beige
+      500: '#FCDDB0',
+      600: '#ca8a04',
+      700: '#a16207',
+      800: '#854d0e',
+      900: '#713f12',
     },
+    // Pastel Lavender - Calm Depth
+    lavender: {
+      50: '#faf5ff',
+      100: '#f3e8ff',
+      200: '#e9d5ff',
+      300: '#C7D2FE', // Pastel lavender
+      400: '#C7D2FE',
+      500: '#a78bfa',
+      600: '#8b5cf6',
+      700: '#7c3aed',
+      800: '#6d28d9',
+      900: '#5b21b6',
+    },
+    // Grayscale - Balanced & Professional
     gray: {
-      50: '#FAFAF9',
-      100: '#F8F7F4',
-      200: '#e8e6e3',
-      300: '#d5d3cf',
-      400: '#b0ada8',
-      500: '#9ca3af', // Soft gray for icons
-      600: '#6b7280',
-      700: '#4b5563',
-      800: '#374151',
-      900: '#1f2937',
+      50: '#F9FAFB', // Off-white background
+      100: '#f3f4f6',
+      200: '#e5e7eb',
+      300: '#d1d5db',
+      400: '#9CA3AF', // Tertiary text
+      500: '#6B7280', // Secondary text / icons
+      600: '#4b5563',
+      700: '#374151',
+      800: '#1f2937',
+      900: '#111827', // Primary text
     },
     background: {
-      primary: '#ffffff',
-      secondary: '#FAFAF9',
-      tertiary: '#F8F7F4',
-      card: '#ffffff',
+      primary: '#F9FAFB', // Off-white
+      secondary: '#FFFFFF', // Pure white
+      card: '#FFFFFF', // Pure white cards
+      tertiary: '#f3f4f6',
     },
     text: {
-      primary: '#374151',
-      secondary: '#6b7280',
-      tertiary: '#9ca3af',
+      primary: '#111827', // Dark gray-black
+      secondary: '#6B7280', // Medium gray
+      tertiary: '#9CA3AF', // Light gray
       inverse: '#ffffff',
     },
-    // Warm Habit Colors (pastel tones)
+    divider: 'rgba(0, 0, 0, 0.05)', // Subtle divider
+    // Habit Category Colors (minimal, professional)
     habits: {
-      blue: '#6EC1E4',
-      green: '#A8E6CF',
-      purple: '#c4b5fd',
-      orange: '#FFD3B6',
-      pink: '#fda4c0',
-      teal: '#7dd3ce',
-      yellow: '#fde68a',
-      red: '#fca5a5',
+      blue: '#3B82F6',
+      green: '#10B981',
+      purple: '#8b5cf6',
+      orange: '#f59e0b',
+      pink: '#ec4899',
+      teal: '#14b8a6',
+      yellow: '#eab308',
+      red: '#ef4444',
     },
   },
 
-  // Generous Spacing (12 / 20 / 32px rhythm)
+  // 8px Baseline Grid Spacing
   spacing: {
     xs: '4px',
     sm: '8px',
     md: '12px',
-    lg: '20px',
-    xl: '32px',
-    '2xl': '48px',
-    '3xl': '64px',
+    lg: '16px',
+    xl: '20px', // Card horizontal padding
+    '2xl': '32px', // Section margin
+    '3xl': '48px',
+    '4xl': '64px',
+    cardPaddingH: '20px',
+    cardPaddingV: '16px',
+    componentGap: '12px',
+    sectionMargin: '32px',
   },
 
-  // Rounded Elements
+  // Border Radius - Habit Space
   borderRadius: {
     none: '0',
-    xs: '4px',
-    sm: '8px',
-    md: '12px',
-    lg: '20px', // Smooth rounded cards
-    xl: '24px',
-    '2xl': '32px',
+    sm: '4px',
+    md: '8px', // Buttons, inputs
+    lg: '16px', // Cards
+    xl: '20px',
+    '2xl': '24px',
     full: '9999px',
   },
 
-  // Soft Shadows
+  // Subtle Shadows - Habit Space
   shadows: {
     none: 'none',
-    xs: '0 1px 2px 0 rgba(0, 0, 0, 0.02)',
-    sm: '0 2px 4px 0 rgba(0, 0, 0, 0.03)',
-    md: '0 2px 8px rgba(0, 0, 0, 0.04)', // Smooth shadow
-    lg: '0 4px 12px rgba(0, 0, 0, 0.05)',
-    xl: '0 8px 20px rgba(0, 0, 0, 0.06)',
+    sm: '0 1px 2px rgba(0, 0, 0, 0.04)',
+    md: '0 2px 8px rgba(0, 0, 0, 0.06)', // Main shadow
+    lg: '0 4px 12px rgba(0, 0, 0, 0.08)',
+    xl: '0 8px 20px rgba(0, 0, 0, 0.10)',
   },
 
-  // Warm Typography - Poppins
+  // Typography System - Inter
   typography: {
     fontFamily: {
-      base: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
-      display: "'Poppins', sans-serif",
+      base: "'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, sans-serif",
+      display: "'Inter', sans-serif",
       mono: 'ui-monospace, SFMono-Regular, Menlo, Monaco, monospace',
     },
     fontSize: {
-      xs: '11px',
-      sm: '13px',
-      base: '15px',
-      lg: '17px',
+      caption: '12px',
+      body: '14px',
+      h3: '16px',
+      h2: '20px',
+      h1: '24px',
+      // Legacy aliases
+      xs: '12px',
+      sm: '14px',
+      base: '14px',
+      lg: '16px',
       xl: '20px',
       '2xl': '24px',
       '3xl': '30px',
       '4xl': '36px',
     },
     fontWeight: {
-      light: 300,
-      normal: 400,
-      medium: 500,
-      semibold: 600,
-      bold: 700,
+      normal: 400, // Body text
+      medium: 500, // Subheadings
+      semibold: 600, // Headlines
     },
     lineHeight: {
-      tight: 1.2,
-      normal: 1.5,
+      tight: 1.3, // For headings
+      normal: 1.5, // For body
       relaxed: 1.75,
     },
     letterSpacing: {
-      tight: '-0.02em',
-      normal: '0',
-      wide: '0.3px', // For headings
+      tight: '-0.2px', // For headings
+      normal: '0', // For body
+      wide: '0.3px',
     },
   },
 
@@ -152,26 +177,25 @@ export const designTokens = {
     spacious: '56px',
   },
 
-  // Gentle, Organic Transitions
+  // Gentle Transitions - Habit Space
   transitions: {
     fast: '150ms',
-    base: '300ms',
-    slow: '500ms',
-    gentle: '600ms', // For fade effects
+    base: '200ms', // Main transition duration
+    slow: '300ms',
     easing: {
+      standard: 'ease-in-out', // Standard Habit Space easing
       easeIn: 'cubic-bezier(0.4, 0, 1, 1)',
       easeOut: 'cubic-bezier(0, 0, 0.2, 1)',
       easeInOut: 'cubic-bezier(0.4, 0, 0.2, 1)',
-      gentle: 'cubic-bezier(0.25, 0.46, 0.45, 0.94)', // Organic easing
     },
   },
 
-  // Gradients
+  // Minimal Gradients
   gradients: {
-    card: 'linear-gradient(to bottom, #ffffff, #f9fafb)',
-    warm: 'linear-gradient(135deg, #FFD3B6, #fde68a)',
-    sky: 'linear-gradient(135deg, #6EC1E4, #A8E6CF)',
-    subtle: 'linear-gradient(to bottom, rgba(255, 255, 255, 0.8), rgba(248, 247, 244, 0.8))',
+    subtle: 'linear-gradient(to bottom, #ffffff, #f9fafb)',
+    blue: 'linear-gradient(135deg, #3B82F6, #60a5fa)',
+    green: 'linear-gradient(135deg, #10B981, #34d399)',
+    lavender: 'linear-gradient(135deg, #C7D2FE, #e0e7ff)',
   },
 
   // Z-Index
@@ -196,27 +220,22 @@ export const breakpoints = {
   desktop: '1280px',
 };
 
-// Animation Presets - Gentle & Organic
+// Animation Presets - Gentle & Calm
 export const animationPresets = {
   fadeIn: {
     initial: { opacity: 0 },
     animate: { opacity: 1 },
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.2, ease: 'easeInOut' },
   },
   slideUp: {
-    initial: { opacity: 0, y: 20 },
+    initial: { opacity: 0, y: 10 },
     animate: { opacity: 1, y: 0 },
-    transition: { duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] },
+    transition: { duration: 0.2, ease: 'easeInOut' },
   },
   scaleIn: {
-    initial: { scale: 0.95, opacity: 0 },
+    initial: { scale: 0.98, opacity: 0 },
     animate: { scale: 1, opacity: 1 },
-    transition: { duration: 0.4, ease: [0.25, 0.46, 0.45, 0.94] },
-  },
-  gentlePop: {
-    initial: { scale: 0.9, opacity: 0 },
-    animate: { scale: 1, opacity: 1 },
-    transition: { type: 'spring', stiffness: 150, damping: 15 },
+    transition: { duration: 0.2, ease: 'easeInOut' },
   },
 };
 

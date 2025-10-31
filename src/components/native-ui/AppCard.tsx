@@ -24,41 +24,39 @@ export default function AppCard({
   const paddingMap = {
     none: '0',
     sm: designTokens.spacing.sm,
-    md: designTokens.spacing.md,
-    lg: designTokens.spacing.lg,
+    md: `${designTokens.spacing.cardPaddingV} ${designTokens.spacing.cardPaddingH}`,
+    lg: designTokens.spacing.xl,
   };
 
   const shadowMap = {
     none: 'none',
     sm: designTokens.shadows.sm,
-    card: 'none',
-    elevated: designTokens.shadows.sm,
-    floating: designTokens.shadows.md,
+    card: designTokens.shadows.md,
+    elevated: designTokens.shadows.md,
+    floating: designTokens.shadows.lg,
   };
 
   const Component = onClick ? motion.button : motion.div;
 
   return (
     <Component
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{
         delay: index * 0.05,
-        duration: 0.4,
-        ease: [0, 0, 0.2, 1]
+        duration: 0.2,
+        ease: 'easeInOut'
       }}
       whileTap={onClick ? { scale: 0.98 } : undefined}
       onClick={onClick}
-      className={`
-        bg-white rounded-lg
-        border border-gray-200
-        ${className}
-      `}
+      className={className}
       style={{
+        backgroundColor: designTokens.colors.background.card,
+        borderRadius: designTokens.borderRadius.lg,
         padding: paddingMap[padding],
         boxShadow: shadowMap[shadow],
         cursor: onClick ? 'pointer' : 'default',
-        borderRadius: designTokens.borderRadius.lg,
+        border: 'none',
       }}
     >
       {children}

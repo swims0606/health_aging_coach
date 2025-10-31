@@ -4,6 +4,7 @@ import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { Sparkles } from 'lucide-react';
 import { motivationalQuotes } from '@/lib/mockData';
+import { designTokens } from '@/lib/designTokens';
 
 export default function MotivationalQuote() {
   const [quote, setQuote] = useState('');
@@ -16,27 +17,52 @@ export default function MotivationalQuote() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 20 }}
+      initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.5, ease: [0.25, 0.46, 0.45, 0.94] }}
-      className="relative overflow-hidden"
+      transition={{ duration: 0.2, ease: 'easeInOut' }}
+      className="relative"
       style={{
-        background: 'linear-gradient(135deg, #FFD3B6 0%, #fde68a 100%)',
-        borderRadius: '20px',
-        padding: '24px',
-        boxShadow: '0 2px 8px rgba(0, 0, 0, 0.04)',
+        backgroundColor: designTokens.colors.background.card,
+        borderRadius: designTokens.borderRadius.lg,
+        padding: `${designTokens.spacing.cardPaddingV} ${designTokens.spacing.cardPaddingH}`,
+        boxShadow: designTokens.shadows.md,
+        border: `1px solid ${designTokens.colors.divider}`,
       }}
     >
-      {/* Decorative sun icon */}
-      <div className="absolute top-4 right-4 opacity-30">
-        <Sparkles className="w-8 h-8 text-white" />
+      {/* Decorative icon */}
+      <div className="absolute top-4 right-4" style={{ opacity: 0.15 }}>
+        <Sparkles
+          size={24}
+          strokeWidth={1.5}
+          style={{ color: designTokens.colors.accent[400] }}
+        />
       </div>
 
       <div className="relative z-10">
-        <p className="text-xs font-medium text-gray-700 mb-2 tracking-wide uppercase opacity-80">
+        <p
+          style={{
+            fontSize: designTokens.typography.fontSize.caption,
+            fontWeight: designTokens.typography.fontWeight.medium,
+            color: designTokens.colors.text.tertiary,
+            textTransform: 'uppercase',
+            letterSpacing: '0.5px',
+            margin: 0,
+            marginBottom: '8px',
+          }}
+        >
           오늘의 동기부여
         </p>
-        <p className="text-base font-normal text-gray-800 italic leading-relaxed" style={{ letterSpacing: '0.3px' }}>
+        <p
+          style={{
+            fontSize: designTokens.typography.fontSize.h3,
+            fontWeight: designTokens.typography.fontWeight.normal,
+            color: designTokens.colors.text.primary,
+            fontStyle: 'italic',
+            lineHeight: designTokens.typography.lineHeight.normal,
+            letterSpacing: designTokens.typography.letterSpacing.normal,
+            margin: 0,
+          }}
+        >
           "{quote}"
         </p>
       </div>
