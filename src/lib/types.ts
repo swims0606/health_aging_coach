@@ -1,4 +1,56 @@
+// ============================================
+// AI Coach Types
+// ============================================
+
+export type AICoachMessageType =
+  | 'nutrition'
+  | 'exercise'
+  | 'sleep'
+  | 'stress'
+  | 'habit'
+  | 'encouragement'
+  | 'water';
+
+export type TimeOfDay = 'morning' | 'lunch' | 'afternoon' | 'evening' | 'night' | 'anytime';
+
+export type ActivityLevel = 'low' | 'moderate' | 'high';
+
+export interface AICoachMessage {
+  id: string;
+  type: AICoachMessageType;
+  message: string;
+  scientificBasis?: string;
+  source?: string;
+  personalization: {
+    habitHistory: string[];
+    timeOfDay: TimeOfDay;
+    recentPatterns: string[];
+    strugglingAreas: string[];
+  };
+  actionable: boolean;
+  timestamp: Date;
+  priority: 'low' | 'medium' | 'high';
+}
+
+export interface UserProfile {
+  completedHabits: string[];
+  strugglingHabits: string[];
+  preferredMealTimes: string[];
+  sleepPattern: {
+    bedtime: string;
+    wakeup: string;
+  };
+  activityLevel: ActivityLevel;
+  healthGoals: string[];
+  currentStreak: number;
+  longestStreak: number;
+  totalCompletions: number;
+}
+
+// ============================================
 // User Statistics
+// ============================================
+
 export interface UserStats {
   currentStreak: number;
   totalDays: number;
@@ -222,8 +274,8 @@ export interface HabitTemplate {
 // Tip Category
 export type TipCategory = 'getting-started' | 'consistency' | 'motivation' | 'troubleshooting';
 
-// Time of Day
-export type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'anytime';
+// Time of Day - Already defined in AI Coach Types section above
+// export type TimeOfDay = 'morning' | 'afternoon' | 'evening' | 'anytime';
 
 // Tip Difficulty
 export type TipDifficulty = 'beginner' | 'intermediate' | 'advanced';

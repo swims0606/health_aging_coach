@@ -8,17 +8,44 @@ import WeeklyView from '@/components/dashboard/WeeklyView';
 import MonthlyView from '@/components/dashboard/MonthlyView';
 import MotivationalQuote from '@/components/dashboard/MotivationalQuote';
 import DailyTip from '@/components/tips/DailyTip';
-import { Habit } from '@/lib/types';
-import { loadHabits } from '@/lib/habitStorage';
+import AICoachCard from '@/components/ai-coach/AICoachCard';
+import { Habit, AICoachMessage } from '@/lib/types';
+import { loadHabits, loadCompletions } from '@/lib/habitStorage';
+import {
+  generateCoachMessage,
+  getTodayMessage,
+  saveCoachMessage
+} from '@/lib/aiCoach';
 
 export default function DashboardPage() {
   const [activeTab, setActiveTab] = useState<TabType>('daily');
   const [habits, setHabits] = useState<Habit[]>([]);
+  const [coachMessage, setCoachMessage] = useState<AICoachMessage | null>(null);
 
   useEffect(() => {
     const loadedHabits = loadHabits();
     setHabits(loadedHabits);
+
+    // Load or generate AI coach message
+    const existingMessage = getTodayMessage();
+    if (existingMessage) {
+      setCoachMessage(existingMessage);
+    } else if (loadedHabits.length > 0) {
+      const completions = loadCompletions();
+      const newMessage = generateCoachMessage(loadedHabits, completions);
+      setCoachMessage(newMessage);
+      saveCoachMessage(newMessage);
+    }
   }, []);
+
+  const handleRefreshCoachMessage = () => {
+    if (habits.length > 0) {
+      const completions = loadCompletions();
+      const newMessage = generateCoachMessage(habits, completions);
+      setCoachMessage(newMessage);
+      saveCoachMessage(newMessage);
+    }
+  };
 
   const renderView = () => {
     switch (activeTab) {
@@ -41,6 +68,16 @@ export default function DashboardPage() {
         <div className="mb-6">
           <MotivationalQuote />
         </div>
+
+        {/* AI Coach Message */}
+        {coachMessage && (
+          <div className="mb-6">
+            <AICoachCard
+              message={coachMessage}
+              onRefresh={handleRefreshCoachMessage}
+            />
+          </div>
+        )}
 
         {/* Daily Tip */}
         {habits.length > 0 && (
